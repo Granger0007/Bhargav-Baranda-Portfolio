@@ -28,7 +28,14 @@ Hands-on security operations work from my personal ARM64 security lab. Every inv
 
 | # | Investigation | ATT&CK Techniques | Status |
 |:-:|---------------|-------------------|:------:|
-| 001 | [Phishing Email → OSI Layer Analysis](./incidents/001-phishing-osi-layer-analysis/) | T1566.001, T1204.002, T1027, T1071.001 | ✅ |
+| 001 | [Phishing Email → OSI Layer Analysis](./incidents/001-phishing-osi-layer-analysis/) | T1566.001, T1204.002, T1027, T1071.001 | ✅ | 
+| 002 | [Wireshark TCP Traffic Analysis](./lab-documentation/002-wireshark-tcp-analysis/) | Wireshark, Kali Linux Packet capture, TCP handshake analysis, SSL stripping identification | ✅ | 
+
+**Each lab includes:**
+- Complete technical writeup with screenshots
+- MITRE ATT&CK mapping
+- Security findings and remediation
+- OSI layer analysis
 
 **Each investigation includes:** Timeline reconstruction • IOC extraction • Sigma/Suricata/KQL detection rules • MITRE mapping • Remediation steps
 
