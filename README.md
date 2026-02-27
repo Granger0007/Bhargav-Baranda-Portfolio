@@ -1,7 +1,6 @@
 <div align="center">
 
 # 🔒 Security Operations Portfolio
-
 **Bhargav Baranda**
 
 [![ISC² CC](https://img.shields.io/badge/ISC²-Certified-00599C?style=flat-square)](https://www.isc2.org/certifications/cc) [![Security+](https://img.shields.io/badge/CompTIA-Security+_In_Progress-EE3124?style=flat-square)](https://www.comptia.org/certifications/security) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/bhargav-baranda)
@@ -10,36 +9,36 @@ MSc Information Security | Royal Holloway, University of London
 
 **Fraud Prevention → Information Security | Building SOC Analyst Capabilities**
 
-[📧 Contact](#-contact) • [🖥️ Lab](#-arm64-security-lab) • [🔍 Investigations](#-incident-investigations)
+[📧 Contact](#-contact) • [🔬 Labs](#-lab-documentation) • [🖥️ Infrastructure](#-arm64-security-lab)
 
 </div>
 
-
+---
 
 ## 🎯 What This Portfolio Demonstrates
 
-Hands-on security operations work from my personal ARM64 security lab. Every investigation includes MITRE ATT&CK mapping, detection rules, and remediation playbooks.
+Hands-on security operations work from my personal ARM64 security lab. Every lab exercise includes MITRE ATT&CK mapping, detection rules, and security analysis.
 
 **Built on:** MacBook Pro (Apple Silicon) • **Running:** ELK Stack, Suricata IDS, Wazuh EDR, Kali Linux
 
+---
 
+## 🔬 Lab Documentation
 
-## 🔍 Incident Investigations
+**Hands-On Security Labs:**
 
-| # | Investigation | ATT&CK Techniques | Status |
-|:-:|---------------|-------------------|:------:|
-| 001 | [Phishing Email → OSI Layer Analysis](./incidents/001-phishing-osi-layer-analysis/) | T1566.001, T1204.002, T1027, T1071.001 | ✅ | 
-| 002 | [Wireshark TCP Traffic Analysis](./lab-documentation/002-wireshark-tcp-analysis/) | Wireshark, Kali Linux Packet capture, TCP handshake analysis, SSL stripping identification | ✅ | 
+| Lab # | Title | Focus Area | Tools Used | Status |
+|:-----:|-------|------------|------------|:------:|
+| 001 | [Phishing Email → OSI Layer Analysis](./incidents/001-phishing-osi-layer-analysis/) | Network fundamentals, MITRE ATT&CK mapping | Theoretical analysis | ✅ |
+| 002 | [Wireshark TCP Traffic Analysis](./lab-documentation/002-wireshark-tcp-analysis/) | Packet capture, TCP handshake, SSL stripping | Wireshark, Kali Linux | ✅ |
 
 **Each lab includes:**
-- Complete technical writeup with screenshots
-- MITRE ATT&CK mapping
-- Security findings and remediation
-- OSI layer analysis
+- Complete technical writeup with screenshots/evidence
+- MITRE ATT&CK technique mapping
+- Security findings and remediation recommendations
+- OSI layer analysis where applicable
 
-**Each investigation includes:** Timeline reconstruction • IOC extraction • Sigma/Suricata/KQL detection rules • MITRE mapping • Remediation steps
-
-
+---
 
 ## 🖥️ ARM64 Security Lab
 
@@ -49,7 +48,7 @@ Hands-on security operations work from my personal ARM64 security lab. Every inv
 **Stack:** ELK Stack 8.x • Suricata 7.x • Wazuh 4.x • Kali Linux ARM64 • Docker containers  
 **Cost:** £0 (fully local, no cloud fees)
 
-
+---
 
 ## 💼 Technical Capabilities
 
@@ -69,7 +68,7 @@ Hands-on security operations work from my personal ARM64 security lab. Every inv
 **Detection Engineering**
 - Sigma rule development
 - Cross-platform query conversion
-- False positive tuning (<5% target)
+- False positive tuning
 - Multi-SIEM deployment
 
 </td>
@@ -96,14 +95,13 @@ Hands-on security operations work from my personal ARM64 security lab. Every inv
 </tr>
 </table>
 
-
-
+---
 
 ## 🎓 Credentials
 
 **ISC² Certified in Cybersecurity (CC)** - Jan 2025 • **MSc Information Security** - Royal Holloway (2024-2025) • **CompTIA Security+** - In Progress (Exam: March 2026)
 
-
+---
 
 ## 📧 Contact
 
