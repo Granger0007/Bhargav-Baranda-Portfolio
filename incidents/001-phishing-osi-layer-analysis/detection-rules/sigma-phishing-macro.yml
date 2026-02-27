@@ -1,0 +1,28 @@
+title: Spearphishing Attachment with Macro
+id: phishing-001-macro-attachment
+status: stable
+description: Detects email delivery with macro-enabled Office attachments from untrusted senders
+author: Bhargav Baranda
+date: 2026/02/10
+logsource:
+    product: email_gateway
+    service: smtp
+detection:
+    selection:
+        attachment_extension:
+            - '.xlsm'
+            - '.docm'
+            - '.xlam'
+        spf_result: 'fail'
+    condition: selection
+falsepositives:
+    - Legitimate macro-enabled documents from trusted business partners
+level: high
+tags:
+    - attack.initial_access
+    - attack.t1566.001
+```
+
+### **4. Commit message:**
+```
+Add Sigma rule for macro-enabled phishing attachments
