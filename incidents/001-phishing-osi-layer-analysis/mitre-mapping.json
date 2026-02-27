@@ -1,0 +1,60 @@
+{
+  "incident_id": "001",
+  "incident_name": "Phishing Email OSI Layer Analysis",
+  "mitre_attack_version": "14.1",
+  "techniques": [
+    {
+      "tactic": "Initial Access",
+      "technique_id": "T1566.001",
+      "technique_name": "Phishing: Spearphishing Attachment",
+      "procedure": "Threat actor sent macro-enabled Excel file via spoofed email",
+      "osi_layer": 7,
+      "evidence": "Email gateway logs, SMTP headers, attachment metadata"
+    },
+    {
+      "tactic": "Execution",
+      "technique_id": "T1204.002",
+      "technique_name": "User Execution: Malicious File",
+      "procedure": "Finance employee opened attachment and enabled macro execution",
+      "osi_layer": 7,
+      "evidence": "Endpoint logs showing Excel process launching macro"
+    },
+    {
+      "tactic": "Defense Evasion",
+      "technique_id": "T1027",
+      "technique_name": "Obfuscated Files or Information",
+      "procedure": "Macro code obfuscated to evade signature-based detection",
+      "osi_layer": 6,
+      "evidence": "High entropy in attachment, sandbox detonation results"
+    },
+    {
+      "tactic": "Command and Control",
+      "technique_id": "T1071.001",
+      "technique_name": "Application Layer Protocol: Web Protocols",
+      "procedure": "RAT established C2 beacon over HTTPS port 443",
+      "osi_layer": 7,
+      "evidence": "Proxy logs, DNS queries, HTTPS connections from non-browser processes"
+    },
+    {
+      "tactic": "Command and Control",
+      "technique_id": "T1573",
+      "technique_name": "Encrypted Channel",
+      "procedure": "C2 communication encrypted with TLS",
+      "osi_layer": 6,
+      "evidence": "TLS certificate inspection, encrypted traffic analysis"
+    },
+    {
+      "tactic": "Resource Development",
+      "technique_id": "T1583.004",
+      "technique_name": "Acquire Infrastructure: Server",
+      "procedure": "Attacker used compromised third-party mail server as relay",
+      "osi_layer": 3,
+      "evidence": "Source IP threat intelligence, mail server reputation checks"
+    }
+  ]
+}
+```
+
+### **4. Commit message:**
+```
+Add MITRE ATT&CK mapping for Investigation 001
