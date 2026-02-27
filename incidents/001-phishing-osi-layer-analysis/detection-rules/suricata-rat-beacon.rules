@@ -1,0 +1,8 @@
+# Suricata Rule: RAT Beacon Detection
+# Layer 4 Detection - Regular HTTPS intervals indicating C2 beaconing
+
+alert tcp any any -> any 443 (msg:"Possible RAT Beacon - Regular HTTPS Intervals"; 
+  flow:established,to_server; 
+  threshold:type both, track by_src, count 10, seconds 60; 
+  classtype:trojan-activity; 
+  sid:1000001; rev:1;)
