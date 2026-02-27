@@ -1,0 +1,13 @@
+# ELK Stack (KQL) Query
+# Layer 7 Detection - Non-browser HTTPS connections (possible C2)
+
+event.category:"network" AND 
+destination.port:443 AND 
+network.protocol:"https" AND 
+NOT process.name:("chrome.exe" OR "firefox.exe" OR "msedge.exe" OR "safari") AND
+network.bytes < 5000
+```
+
+### **4. Commit message:**
+```
+Add ELK KQL query for C2 detection
