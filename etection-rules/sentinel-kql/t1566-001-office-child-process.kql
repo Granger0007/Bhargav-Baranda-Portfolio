@@ -1,0 +1,36 @@
+// T1566.001 — Suspicious Office Child Process Execution
+// Technique: Phishing > Spearphishing Attachment
+// Author: Bhargav Baranda (Granger0007) | Date: 2026-03-06
+// False positives: Legitimate business macros — review CommandLine and whitelist by hash
+
+DeviceProcessEvents
+| where Timestamp > ago(24h)
+| where InitiatingProcessFileName in~ (
+    "WINWORD.EXE",
+    "EXCEL.EXE",
+    "POWERPNT.EXE",
+    "MSPUB.EXE"
+  )
+| where FileName in~ (
+    "cmd.exe",
+    "powershell.exe",
+    "wscript.exe",
+    "cscript.exe",
+    "mshta.exe",
+    "rundll32.exe"
+  )
+| extend RiskScore = case(
+    FileName =~ "powershell.exe", 90,
+    FileName =~ "mshta.exe", 85,
+    FileName =~ "rundll32.exe", 80,
+    70
+  )
+| project
+    Timestamp,
+    DeviceName,
+    AccountName,
+    InitiatingProcessFileName,
+    FileName,
+    ProcessCommandLine,
+    RiskScore
+| sort by RiskScore desc, Timestamp desc
