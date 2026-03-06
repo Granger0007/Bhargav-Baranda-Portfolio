@@ -31,6 +31,7 @@ Hands-on security operations work from my personal ARM64 security lab. Every lab
 |:-----:|-------|------------|------------|:------:|
 | 001 | [Phishing Email → OSI Layer Analysis](./incidents/001-phishing-osi-layer-analysis/) | Network fundamentals, MITRE ATT&CK mapping | Theoretical analysis | ✅ |
 | 002 | [Wireshark TCP Traffic Analysis](./lab-documentation/002-wireshark-tcp-analysis/) | Packet capture, TCP handshake, SSL stripping | Wireshark, Kali Linux | ✅ |
+| 003 | [Subnetting Without Calculators](./lab-documentation/003-subnetting-fundamentals/) | Network segmentation, lateral movement detection | Mental arithmetic | ✅ |
 
 **Each lab includes:**
 - Complete technical writeup with screenshots/evidence
