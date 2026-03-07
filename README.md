@@ -10,7 +10,7 @@
 [![YouTube](https://img.shields.io/badge/YouTube-Granger_Security-FF0000?style=flat-square&logo=youtube)](https://youtube.com/@Granger-Security)
 [![GitHub](https://img.shields.io/badge/GitHub-Granger0007-181717?style=flat-square&logo=github)](https://github.com/Granger0007)
 
-![Labs](https://img.shields.io/badge/Labs_Complete-5-EE3124?style=flat-square)
+![Labs](https://img.shields.io/badge/Labs_Complete-6-EE3124?style=flat-square)
 ![MITRE](https://img.shields.io/badge/MITRE_ATT%26CK-Sub--technique_Level-orange?style=flat-square)
 ![Detection Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=flat-square)
 
@@ -58,7 +58,7 @@ MacBook Pro — Apple Silicon (ARM64)
 | 003 | 🔴 Investigation | [Network Segmentation — Lateral Movement Detection](./incidents/case-003/) | T1021.002, T1018, T1210 · Subnet boundary analysis · Sigma + SPL + KQL | ✅ |
 | 004 | 🔵 Lab | [DNS Enumeration — Interrogating the Internet](./lab-setup/dns-enumeration/) | T1590.002, T1498.002 · dig, nslookup · DNS record analysis · Threat intelligence methodology | ✅ |
 | 005 | 🔴 Investigation | [HTTP vs HTTPS — I Watched a Password Travel Across the Internet](./incidents/case-005/) | T1040, T1557.002, T1595.001 · Wireshark · Credential interception · TLS handshake analysis | ✅ |
-
+| 006 | 🔴 Investigation | [Twenty Doors — Port Security Analysis](./incidents/case-006/) | T1046, T1021.001, T1021.002, T1048.003, T1190, T1133 · 20 ports risk-tiered · WannaCry/NHS case study | ✅ |
 **Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup
 
 ---
@@ -136,7 +136,7 @@ Q3 2026
 
 *Built in public. Every rule, investigation, and writeup is free to use under the MIT License.*
 
-![Labs](https://img.shields.io/badge/Labs_Complete-5-EE3124?style=for-the-badge)
+![Labs](https://img.shields.io/badge/Labs_Complete-6-EE3124?style=for-the-badge)
 ![Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=for-the-badge)
 ![Commits](https://img.shields.io/badge/Commits-Building-brightgreen?style=for-the-badge)
 
