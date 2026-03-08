@@ -16,7 +16,7 @@
 
 </div>
 
----
+
 
 ## What This Portfolio Demonstrates
 
@@ -30,7 +30,7 @@ Every piece of work meets the same bar:
 - **Remediation playbook** — 0–4hr containment, 24–72hr eradication, long-term prevention
 - **IOC package** — IPs, domains, hashes with confidence ratings
 
----
+
 
 ## Home Lab
 
@@ -47,7 +47,7 @@ MacBook Pro — Apple Silicon (ARM64)
 
 > Most enterprise SOC tools are x86_64 only. Every ARM64 workaround in this lab is fully documented and reproducible.
 
----
+
 
 ## Lab Index
 
@@ -60,9 +60,18 @@ MacBook Pro — Apple Silicon (ARM64)
 | 005 | 🔴 Investigation | [HTTP vs HTTPS — I Watched a Password Travel Across the Internet](./incidents/case-005/) | T1040, T1557.002, T1595.001 · Wireshark · Credential interception · TLS handshake analysis | ✅ |
 | 006 | 🔴 Investigation | [Twenty Doors — Port Security Analysis](./incidents/case-006/) | T1046, T1021.001, T1021.002, T1048.003, T1190, T1133 · 20 ports risk-tiered · WannaCry/NHS case study | ✅ |
 | 007 | 🔴 Investigation | [Firewall Architecture — The Invisible Walls Inside Every Network](./incidents/case-007/) | T1190, T1021.002, T1041, T1571, T1599 · Three-zone architecture · Default deny · Least privilege | ✅ |
+
 **Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup
 
----
+
+
+## Projects
+
+| | Project | Description | Stack | Status |
+|:-:|---------|-------------|-------|:------:|
+| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🟢 [Live](https://ozone-shield.netlify.app) |
+
+
 
 ## Technical Skills
 
@@ -74,8 +83,9 @@ MacBook Pro — Apple Silicon (ARM64)
 | **Threat Intelligence** | MITRE ATT&CK at sub-technique level · IOC extraction · CISA KEV · NCSC advisories · GreyNoise · OTX |
 | **Network Analysis** | Wireshark · tcpdump · Suricata IDS · DNS enumeration · TLS inspection · Traffic baselining |
 | **Infrastructure** | Docker · Kali Linux ARM64 · VirtualBox · Wazuh EDR · Nmap |
+| **Product Development** | Anthropic API · Claude AI · Netlify serverless · Node.js · Security hardening · System prompt engineering |
 
----
+
 
 ## Credentials
 
@@ -86,7 +96,7 @@ MacBook Pro — Apple Silicon (ARM64)
 | CompTIA Security+ SY0-701 | CompTIA | 🔄 In Progress |
 | Splunk Core Certified User | Splunk | 🎯 Planned Q2 2026 |
 
----
+
 
 ## Granger Security — YouTube
 
@@ -96,7 +106,7 @@ MacBook Pro — Apple Silicon (ARM64)
 
 Every investigation in this portfolio has a companion video. Links are in each case README.
 
----
+
 
 ## 2026 Roadmap
 
@@ -104,6 +114,7 @@ Every investigation in this portfolio has a companion video. Links are in each c
 Q1 2026
  ├── ✅  MSc Information Security — Royal Holloway
  ├── ✅  ISC² Certified in Cybersecurity (CC)
+ ├── ✅  OZONE Shield — live AI scam detector (ozone-shield.netlify.app)
  ├── 🔄  CompTIA Security+ SY0-701
  └── 🔄  Security operations portfolio — active build
 
@@ -115,10 +126,10 @@ Q2 2026
 Q3 2026
  ├── 🎯  Splunk Power User
  ├── 🎯  Open-source Sigma contributions
- └── 🎯  OZONE Security — AI threat detection MVP
+ └── 🎯  OZONE Security — expand beyond scam detection
 ```
 
----
+
 
 ## Contact
 
@@ -131,7 +142,7 @@ Q3 2026
 | GitHub | [github.com/Granger0007](https://github.com/Granger0007) |
 | Email | bbaranda055@gmail.com |
 
----
+
 
 <div align="center">
 
