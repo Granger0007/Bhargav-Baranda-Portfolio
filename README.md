@@ -69,7 +69,7 @@ MacBook Pro — Apple Silicon (ARM64)
 
 | | Project | Description | Stack | Status |
 |:-:|---------|-------------|-------|:------:|
-| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🔴10/04/26 [Live](https://ozone-shield.netlify.app) |
+| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🔴10/04/26 [Live]
 
 
 
