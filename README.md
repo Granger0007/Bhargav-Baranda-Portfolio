@@ -10,13 +10,13 @@
 [![YouTube](https://img.shields.io/badge/YouTube-Granger_Security-FF0000?style=flat-square&logo=youtube)](https://youtube.com/@Granger-Security)
 [![GitHub](https://img.shields.io/badge/GitHub-Granger0007-181717?style=flat-square&logo=github)](https://github.com/Granger0007)
 
-![Labs](https://img.shields.io/badge/Labs_Complete-7-EE3124?style=flat-square)
+![Labs](https://img.shields.io/badge/Labs_Complete-9-EE3124?style=flat-square)
 ![MITRE](https://img.shields.io/badge/MITRE_ATT%26CK-Sub--technique_Level-orange?style=flat-square)
 ![Detection Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=flat-square)
 
 </div>
 
-
+---
 
 ## What This Portfolio Demonstrates
 
@@ -30,73 +30,97 @@ Every piece of work meets the same bar:
 - **Remediation playbook** — 0–4hr containment, 24–72hr eradication, long-term prevention
 - **IOC package** — IPs, domains, hashes with confidence ratings
 
-
+---
 
 ## Home Lab
 
 ```
-MacBook Pro — Apple Silicon (ARM64)
-└── VirtualBox
+MacBook Pro — Apple Silicon M-series (ARM64)
+└── UTM Virtualisation
     └── Kali Linux ARM64
         ├── SIEM            →  Splunk (Docker/containerised)  +  ELK Stack 8.x
         ├── IDS / EDR       →  Suricata 7.x  +  Wazuh 4.x
-        ├── Analysis        →  Wireshark, tcpdump, Nmap, Volatility
-        ├── Detection Eng   →  Sigma, SPL, KQL
+        ├── Network         →  Wireshark 4.6.x · tcpdump · Nmap 7.99
+        ├── Forensics       →  Volatility 3 · tshark · NetworkMiner
+        ├── Detection Eng   →  Sigma · SPL · KQL
+        ├── Offensive       →  Burp Suite · apktool · jadx · ADB
         └── Infrastructure  →  Docker containers — £0 cloud spend
 ```
 
-> Most enterprise SOC tools are x86_64 only. Every ARM64 workaround in this lab is fully documented and reproducible.
+> Enterprise SOC tools assume x86_64. My machine is Apple Silicon ARM64. Every workaround is documented and published — reproducible by any analyst on Apple Silicon.
 
-
+---
 
 ## Lab Index
 
 | # | Type | Title | Key Skills | Status |
 |:-:|:----:|-------|-----------|:------:|
-| 001 | 🔴 Investigation | [Spearphishing Attack — A Story in Seven Layers](./incidents/case-001/) | T1566.001, T1204.002, T1059.005, T1027, T1071.001, T1573.001 + 3 more · Sigma + SPL + KQL | ✅ |
-| 002 | 🔴 Investigation | [TCP Traffic Analysis — SSL Stripping & C2 Beacon Detection](./incidents/case-002/) | T1040, T1071.001, T1557 · Wireshark packet analysis · Sigma + SPL + KQL | ✅ |
-| 003 | 🔴 Investigation | [Network Segmentation — Lateral Movement Detection](./incidents/case-003/) | T1021.002, T1018, T1210 · Subnet boundary analysis · Sigma + SPL + KQL | ✅ |
-| 004 | 🔵 Lab | [DNS Enumeration — Interrogating the Internet](./lab-setup/dns-enumeration/) | T1590.002, T1498.002 · dig, nslookup · DNS record analysis · Threat intelligence methodology | ✅ |
-| 005 | 🔴 Investigation | [HTTP vs HTTPS — I Watched a Password Travel Across the Internet](./incidents/case-005/) | T1040, T1557.002, T1595.001 · Wireshark · Credential interception · TLS handshake analysis | ✅ |
-| 006 | 🔴 Investigation | [Twenty Doors — Port Security Analysis](./incidents/case-006/) | T1046, T1021.001, T1021.002, T1048.003, T1190, T1133 · 20 ports risk-tiered · WannaCry/NHS case study | ✅ |
-| 007 | 🔴 Investigation | [Firewall Architecture — The Invisible Walls Inside Every Network](./incidents/case-007/) | T1190, T1021.002, T1041, T1571, T1599 · Three-zone architecture · Default deny · Least privilege | ✅ |
+| 001 | 🔴 Investigation | [Spearphishing Attack — A Story in Seven Layers](./incidents/case-001/) | T1566.001 · T1204.002 · T1059.005 · T1027 · T1071.001 · T1573.001 · Sigma + SPL + KQL | ✅ |
+| 002 | 🔴 Investigation | [TCP Traffic Analysis — SSL Stripping & C2 Beacon Detection](./incidents/case-002/) | T1040 · T1071.001 · T1557 · Wireshark packet analysis · Sigma + SPL + KQL | ✅ |
+| 003 | 🔴 Investigation | [Network Segmentation — Lateral Movement Detection](./incidents/case-003/) | T1021.002 · T1018 · T1210 · Subnet boundary analysis · Sigma + SPL + KQL | ✅ |
+| 004 | 🔵 Lab | [DNS Enumeration — Interrogating the Internet](./lab-setup/dns-enumeration/) | T1590.002 · T1498.002 · dig · nslookup · DNS record analysis · Threat intelligence | ✅ |
+| 005 | 🔴 Investigation | [HTTP vs HTTPS — I Watched a Password Travel Across the Internet](./incidents/case-005/) | T1040 · T1557.002 · T1595.001 · Wireshark · Credential interception · TLS analysis | ✅ |
+| 006 | 🔴 Investigation | [Twenty Doors — Port Security Analysis](./incidents/case-006/) | T1046 · T1021.001 · T1021.002 · T1048.003 · T1190 · T1133 · 20 ports risk-tiered | ✅ |
+| 007 | 🔴 Investigation | [Firewall Architecture — The Invisible Walls Inside Every Network](./incidents/case-007/) | T1190 · T1021.002 · T1041 · T1571 · T1599 · Three-zone architecture · Default deny | ✅ |
+| 008 | 🔵 Lab | [Nmap Port Scanning — What Attackers See in 30 Seconds](./lab-setup/nmap-labs/lab-008/) | T1046 · Nmap 7.99 · Wireshark · Service version detection · OS fingerprinting · VMware CVE probe | ✅ |
+| 009 | 🔵 Lab | [Wireshark Deep Dive — Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | T1040 · T1557 · T1071 · tshark · TCP flag analysis · HTTP NSE extraction · SSH banner forensics | ✅ |
+| 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | 🔄 |
 
-**Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup
+**Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
 
+---
 
+## MITRE ATT&CK Coverage
+
+```
+Reconnaissance   ████████░░  T1590 · T1046 · T1498 · T1595
+Initial Access   ████░░░░░░  T1566.001 · T1190 · T1133
+Execution        ██░░░░░░░░  T1204.002 · T1059.005
+Defence Evasion  ████░░░░░░  T1036 · T1071 · T1573 · T1027
+Credential Acc.  ████░░░░░░  T1110 · T1040 · T1557.002
+Discovery        ██████░░░░  T1046 · T1590 · T1018 · T1210
+Lateral Movement ██░░░░░░░░  T1021.001 · T1021.002
+C2               ████░░░░░░  T1071.001 · T1071.004 · T1571
+Exfiltration     ██░░░░░░░░  T1041 · T1048.003
+```
+
+Coverage expands with every lab. Full technique-to-investigation mapping in each case README.
+
+---
 
 ## Projects
 
 | | Project | Description | Stack | Status |
 |:-:|---------|-------------|-------|:------:|
-| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🔴10/04/26 [Live]
+| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🔴 Live |
 
-
+---
 
 ## Technical Skills
 
 | Area | Skills |
 |------|--------|
-| **SIEM** | Splunk SPL (search, stats, eval, rex, timechart, correlation searches) · ELK Stack 8.x · Dashboard development |
+| **SIEM** | Splunk SPL (search, stats, eval, rex, timechart, correlation searches) · Microsoft Sentinel KQL · ELK Stack 8.x |
 | **Detection Engineering** | Sigma · Splunk SPL · Microsoft Sentinel KQL · False positive tuning · Evasion gap analysis |
-| **Incident Response** | Timeline reconstruction · Root cause analysis · GDPR Article 33 / ICO 72hr assessment · Remediation playbooks |
-| **Threat Intelligence** | MITRE ATT&CK at sub-technique level · IOC extraction · CISA KEV · NCSC advisories · GreyNoise · OTX |
-| **Network Analysis** | Wireshark · tcpdump · Suricata IDS · DNS enumeration · TLS inspection · Traffic baselining |
-| **Infrastructure** | Docker · Kali Linux ARM64 · VirtualBox · Wazuh EDR · Nmap |
-| **Product Development** | Anthropic API · Claude AI · Netlify serverless · Node.js · Security hardening · System prompt engineering |
+| **Incident Response** | NIST SP 800-61 lifecycle · Timeline reconstruction · Root cause analysis · GDPR Article 33 / ICO 72hr |
+| **Threat Intelligence** | MITRE ATT&CK at sub-technique level · IOC extraction · CISA KEV · NCSC advisories · VirusTotal · OTX |
+| **Network Analysis** | Wireshark · tshark · tcpdump · Suricata IDS · DNS enumeration · Packet forensics · TLS inspection |
+| **Offensive Tools** | Nmap · Burp Suite · apktool · jadx · ADB · OWASP Top 10 / Mobile Top 10 |
+| **Infrastructure** | Docker · Kali Linux ARM64 · UTM · Wazuh EDR |
+| **Scripting** | Python · Bash · SPL · KQL · Sigma |
 
-
+---
 
 ## Credentials
 
 | Credential | Institution | Status |
 |---|---|:---:|
-| MSc Information Security | Royal Holloway, University of London | ✅ Completed |
+| MSc Information Security | Royal Holloway, University of London (NCSC/GCHQ ACE-CSR) | ✅ Completed 2025 |
 | Certified in Cybersecurity (CC) | ISC² | ✅ Active |
 | CompTIA Security+ SY0-701 | CompTIA | 🔄 In Progress |
 | Splunk Core Certified User | Splunk | 🎯 Planned Q2 2026 |
 
-
+---
 
 ## Granger Security — YouTube
 
@@ -106,17 +130,20 @@ MacBook Pro — Apple Silicon (ARM64)
 
 Every investigation in this portfolio has a companion video. Links are in each case README.
 
-
+---
 
 ## 2026 Roadmap
 
 ```
-Q1 2026
- ├── ✅  MSc Information Security — Royal Holloway
+2025
+ ├── ✅  MSc Information Security — Royal Holloway, University of London
  ├── ✅  ISC² Certified in Cybersecurity (CC)
- ├── ✅  OZONE Shield — live AI scam detector (ozone-shield.netlify.app)
- ├── 🔄  CompTIA Security+ SY0-701
- └── 🔄  Security operations portfolio — active build
+ └── ✅  OZONE Shield — live AI scam detector (ozone-shield.netlify.app)
+
+Q1–Q2 2026
+ ├── 🔄  CompTIA Security+ SY0-701          ← active
+ ├── 🔄  SOC Lab Programme — 9/76 complete  ← active
+ └── 🔄  UK SOC Analyst job applications    ← active
 
 Q2 2026
  ├── 🎯  Security+ passed
@@ -125,11 +152,15 @@ Q2 2026
 
 Q3 2026
  ├── 🎯  Splunk Power User
- ├── 🎯  Open-source Sigma contributions
- └── 🎯  OZONE Security — expand beyond scam detection
+ ├── 🎯  BTL1 / eJPT
+ └── 🎯  Open-source Sigma contributions
+
+2027
+ ├── 🎯  CompTIA CySA+
+ └── 🎯  Cloud Security — AZ-500 / AWS Security Specialty
 ```
 
-
+---
 
 ## Contact
 
@@ -142,13 +173,13 @@ Q3 2026
 | GitHub | [github.com/Granger0007](https://github.com/Granger0007) |
 | Email | bbaranda055@gmail.com |
 
-
+---
 
 <div align="center">
 
 *Built in public. Every rule, investigation, and writeup is free to use under the MIT License.*
 
-![Labs](https://img.shields.io/badge/Labs_Complete-7-EE3124?style=for-the-badge)
+![Labs](https://img.shields.io/badge/Labs_Complete-9-EE3124?style=for-the-badge)
 ![Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=for-the-badge)
 ![Commits](https://img.shields.io/badge/Commits-Building-brightgreen?style=for-the-badge)
 
