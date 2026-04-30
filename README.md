@@ -64,7 +64,7 @@ MacBook Pro — Apple Silicon M-series (ARM64)
 | 007 | 🔴 Investigation | [Firewall Architecture — The Invisible Walls Inside Every Network](./incidents/case-007/) | T1190 · T1021.002 · T1041 · T1571 · T1599 · Three-zone architecture · Default deny | ✅ |
 | 008 | 🔵 Lab | [Nmap Port Scanning — What Attackers See in 30 Seconds](./lab-setup/nmap-labs/lab-008/) | T1046 · Nmap 7.99 · Wireshark · Service version detection · OS fingerprinting · VMware CVE probe | ✅ |
 | 009 | 🔵 Lab | [Wireshark Deep Dive — Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | T1040 · T1557 · T1071 · tshark · TCP flag analysis · HTTP NSE extraction · SSH banner forensics | ✅ |
-| 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | 🔄 |
+| 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | ✅ |
 
 **Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
 
