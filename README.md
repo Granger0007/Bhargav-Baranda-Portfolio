@@ -3,14 +3,14 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:EE3124&height=180&section=header&text=Security%20Operations%20Portfolio&fontSize=40&fontColor=ffffff&fontAlignY=38&desc=Bhargav%20Baranda%20%7C%20SOC%20Analyst%20%7C%20Detection%20Engineer&descSize=16&descAlignY=58&descColor=EE3124" />
 
 [![ISC²](https://img.shields.io/badge/ISC²-Certified_in_Cybersecurity-00599C?style=for-the-badge&logoColor=white)](https://www.isc2.org/certifications/cc)
-[![Security+](https://img.shields.io/badge/CompTIA-Security+_In_Progress-EE3124?style=for-the-badge)](https://www.comptia.org/certifications/security)
+[![Security+](https://img.shields.io/badge/CompTIA-Security+_Certified-EE3124?style=for-the-badge)](https://www.comptia.org/certifications/security)
 [![Royal Holloway](https://img.shields.io/badge/Royal_Holloway-MSc_Information_Security-003087?style=for-the-badge)](https://www.royalholloway.ac.uk)
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-bhargav--baranda-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/bhargav-baranda)
 [![YouTube](https://img.shields.io/badge/YouTube-Granger_Security-FF0000?style=flat-square&logo=youtube)](https://youtube.com/@Granger-Security)
 [![GitHub](https://img.shields.io/badge/GitHub-Granger0007-181717?style=flat-square&logo=github)](https://github.com/Granger0007)
 
-![Labs](https://img.shields.io/badge/Labs_Complete-9-EE3124?style=flat-square)
+![Labs](https://img.shields.io/badge/Labs_Complete-10-EE3124?style=flat-square)
 ![MITRE](https://img.shields.io/badge/MITRE_ATT%26CK-Sub--technique_Level-orange?style=flat-square)
 ![Detection Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=flat-square)
 
@@ -92,7 +92,7 @@ Coverage expands with every lab. Full technique-to-investigation mapping in each
 
 | | Project | Description | Stack | Status |
 |:-:|---------|-------------|-------|:------:|
-| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Netlify · Serverless · Node.js | 🔴 Live |
+| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Cloudflare Workers · Cloudflare AI Gateway | 🔴 Live |
 
 ---
 
@@ -117,8 +117,8 @@ Coverage expands with every lab. Full technique-to-investigation mapping in each
 |---|---|:---:|
 | MSc Information Security | Royal Holloway, University of London (NCSC/GCHQ ACE-CSR) | ✅ Completed 2025 |
 | Certified in Cybersecurity (CC) | ISC² | ✅ Active |
-| CompTIA Security+ SY0-701 | CompTIA | 🔄 In Progress |
-| Splunk Core Certified User | Splunk | 🎯 Planned Q2 2026 |
+| CompTIA Security+ SY0-701 | CompTIA | ✅ Certified Aug 2026 |
+| Splunk Core Certified User | Splunk | 🎯 Planned Q3 2026 |
 
 ---
 
@@ -137,20 +137,19 @@ Every investigation in this portfolio has a companion video. Links are in each c
 ```
 2025
  ├── ✅  MSc Information Security — Royal Holloway, University of London
- ├── ✅  ISC² Certified in Cybersecurity (CC)
- └── ✅  OZONE Shield — live AI scam detector (ozone-shield.netlify.app)
+ └── ✅  ISC² Certified in Cybersecurity (CC)
 
 Q1–Q2 2026
- ├── 🔄  CompTIA Security+ SY0-701          ← active
- ├── 🔄  SOC Lab Programme — 9/76 complete  ← active
- └── 🔄  UK SOC Analyst job applications    ← active
-
-Q2 2026
- ├── 🎯  Security+ passed
- ├── 🎯  Splunk Core Certified User
- └── 🎯  SOC Analyst role — UK market
+ ├── ✅  SOC Lab Programme — Labs 001–010 complete
+ ├── ✅  OZONE Shield — live AI scam detector (ozone-shield.bbaranda055.workers.dev)
+ └── 🔄  UK SOC Analyst job applications          ← active
 
 Q3 2026
+ ├── ✅  CompTIA Security+ SY0-701 — passed, first attempt
+ ├── 🔄  SOC Analyst role — UK market              ← active
+ └── 🎯  Splunk Core Certified User
+
+Q4 2026
  ├── 🎯  Splunk Power User
  ├── 🎯  BTL1 / eJPT
  └── 🎯  Open-source Sigma contributions
@@ -179,7 +178,7 @@ Q3 2026
 
 *Built in public. Every rule, investigation, and writeup is free to use under the MIT License.*
 
-![Labs](https://img.shields.io/badge/Labs_Complete-9-EE3124?style=for-the-badge)
+![Labs](https://img.shields.io/badge/Labs_Complete-10-EE3124?style=for-the-badge)
 ![Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=for-the-badge)
 ![Commits](https://img.shields.io/badge/Commits-Building-brightgreen?style=for-the-badge)
 
