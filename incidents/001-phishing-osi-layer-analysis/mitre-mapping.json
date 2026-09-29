@@ -45,16 +45,11 @@
     },
     {
       "tactic": "Resource Development",
-      "technique_id": "T1583.004",
-      "technique_name": "Acquire Infrastructure: Server",
+      "technique_id": "T1584.004",
+      "technique_name": "Compromise Infrastructure: Server",
       "procedure": "Attacker used compromised third-party mail server as relay",
       "osi_layer": 3,
       "evidence": "Source IP threat intelligence, mail server reputation checks"
     }
   ]
 }
-```
-
-### **4. Commit message:**
-```
-Add MITRE ATT&CK mapping for Investigation 001
