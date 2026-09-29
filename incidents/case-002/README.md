@@ -411,4 +411,36 @@ Every network connection — every single one, no matter how mundane — leaves 
 
 The curl command took less than a second. In that second, my machine generated 10 packets revealing: my IP address, my MAC address, my ephemeral port, the destination, the protocol, whether encryption was in use, how the connection opened, what data was requested, what response arrived, and how it closed.
 
-**An attacker running a RAT generates the same trail.** Different destination. Different connection pattern. But the same
+**An attacker running a RAT generates the same trail.** Different destination. Different connection pattern. But the same fundamental structure. Packets. Flags. Ports. Timing. Trail.
+
+A SOC analyst who understands what legitimate traffic looks like can spot what illegitimate traffic looks like. **That contrast is the entire job.**
+
+---
+
+## 🎤 Interview Answer
+
+> *"Describe your home lab. What's the most complex thing you've detected?"*
+
+"I run Wireshark on Kali Linux ARM64 in UTM on Apple Silicon — a setup that required documented workarounds to get working, which are published on my GitHub. In a traffic analysis exercise I captured a complete TCP connection lifecycle across ten packets and read the evidence at every OSI layer simultaneously. I identified two security findings: a fully plaintext HTTP exchange — Google's redirect pointed to another HTTP address, not HTTPS — and an unknown outbound IP requiring threat intelligence verification. I mapped both to MITRE ATT&CK and wrote detection rules in Sigma, SPL, and KQL. The key insight was that legitimate traffic and malicious traffic share identical packet-level structure — the difference is destination, timing, and pattern. That contrast is how SOC analysts catch C2 beacons."
+
+---
+
+## 🔗 Related Work
+
+| Resource | Link |
+|----------|------|
+| Case-001 — Phishing Investigation | [`../case-001/`](../case-001/) |
+| Detection Rules — Sigma | [`/detection-rules/sigma/`](../../detection-rules/sigma/) |
+| Detection Rules — SPL | [`/detection-rules/splunk-spl/`](../../detection-rules/splunk-spl/) |
+| Detection Rules — KQL | [`/detection-rules/sentinel-kql/`](../../detection-rules/sentinel-kql/) |
+| Lab Setup — Wireshark | [`/lab-setup/kali-utm/`](../../lab-setup/kali-utm/) |
+| YouTube Video | 🔄 In production — [Granger Security](https://youtube.com/@Granger-Security) |
+
+---
+
+<div align="center">
+
+*Investigation #2 of 30 — Case closed.*
+*Ten packets. Every layer. The trail was always there.*
+
+</div>
