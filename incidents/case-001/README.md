@@ -2,7 +2,9 @@
 
 # 🔴 Case-001 — Spearphishing Attack: A Story in Seven Layers
 
-**A real incident investigation, written so anyone can understand it.**
+**A scenario-based investigation, written so anyone can understand it.**
+
+> **Training scenario.** This attack didn't happen to a real organisation — I built it to practise tracing one phishing attack through all seven OSI layers and writing the detections for it. The rules, evidence sources and playbook are what I'd use on a live case.
 
 ![Severity](https://img.shields.io/badge/Severity-High-red?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Closed-brightgreen?style=flat-square)
@@ -30,7 +32,7 @@
 
 ## 🎯 Executive Summary
 
-A finance department employee at a UK bank received a spearphishing email impersonating the CFO. The email delivered a macro-enabled Excel attachment designed to deploy a Remote Access Trojan (RAT) on execution. The RAT was configured to beacon outbound over port 443 — blending into legitimate HTTPS traffic — back to attacker-controlled Command and Control infrastructure.
+In this scenario, a finance department employee at a UK bank receives a spearphishing email impersonating the CFO. The email delivered a macro-enabled Excel attachment designed to deploy a Remote Access Trojan (RAT) on execution. The RAT was configured to beacon outbound over port 443 — blending into legitimate HTTPS traffic — back to attacker-controlled Command and Control infrastructure.
 
 This investigation traces the attack through all seven OSI layers, from the physical cables the email travelled on to the application-layer deception that made the victim open the file. Every layer produced evidence. Every layer offered a detection opportunity. Not all of them were taken.
 
@@ -47,14 +49,14 @@ This investigation traces the attack through all seven OSI layers, from the phys
 | Execution | T1204 | T1204.002 — Malicious File | Victim opened attachment; macro prompted to enable content |
 | Execution | T1059 | T1059.005 — Visual Basic | VBA macro executed PowerShell payload on document open |
 | Defense Evasion | T1027 | T1027.010 — Command Obfuscation | Macro obfuscated to evade signature-based AV detection |
-| Defense Evasion | T1036 | T1036.005 — Match Legitimate Name | RAT beacon used port 443 to mimic HTTPS traffic |
+| Defense Evasion | T1036 | T1036.004 — Masquerade Task or Service | RAT's scheduled task named `\Microsoft\Windows\UpdateCheck` to look like a built-in Windows task |
 | Command & Control | T1071 | T1071.001 — Web Protocols | RAT communicated via HTTPS on port 443 |
 | Command & Control | T1573 | T1573.001 — Symmetric Cryptography | C2 traffic encrypted with TLS — content not readable in transit |
 | Persistence | T1053 | T1053.005 — Scheduled Task | RAT installed scheduled task for persistence across reboots |
 
 ---
 
-## 📖 The Attack — What Actually Happened
+## 📖 The Attack — The Scenario
 
 It's a Tuesday morning. A finance employee at a large UK bank opens their email and sees a message from the CFO — "Urgent: Q4 Budget Approval Needed." Same name. Same tone. Same format as every other email he sends.
 
@@ -136,7 +138,7 @@ A compromised workstation making repeated short outbound connections to an unfam
 
 ```
 Suspicious pattern:
-finance-workstation-04 → 185.220.101.47:443
+finance-workstation-04 → 203.0.113.47:443
 Connection every 60 seconds
 Duration: 847 connections over 14 hours
 → This is not a human browsing the web. This is a beacon.
@@ -156,7 +158,7 @@ Normal web browsing creates many short sessions — you load a page, the session
 
 ```
 Anomaly detected:
-Session from 192.168.1.47 to 185.220.101.47
+Session from 192.168.1.47 to 203.0.113.47
 Duration: 14 hours, 23 minutes
 Normal expected max session duration: 10 minutes
 → Escalate for investigation
@@ -187,7 +189,7 @@ Normal expected max session duration: 10 minutes
 
 **What this layer is:** The layer you interact with. Email clients. Web browsers. The protocols: SMTP (email delivery), HTTP/HTTPS (web), DNS (translating domain names to IPs).
 
-**What happened:** The finance employee's email client received the phishing message via SMTP and rendered it as a convincing CFO impersonation. They opened the attachment. The macro ran. The RAT established its HTTPS beacon — Layer 7 protocol, encrypted at Layer 6, delivered reliably via TCP at Layer 4, routed by IP at Layer 3 — all the way back to the attacker.
+**What happened:** The phishing message reached the bank's mail server over SMTP, and the finance employee's email client rendered it as a convincing CFO impersonation. They opened the attachment. The macro ran. The RAT established its HTTPS beacon — Layer 7 protocol, encrypted at Layer 6, delivered reliably via TCP at Layer 4, routed by IP at Layer 3 — all the way back to the attacker.
 
 **What a defender finds here — the richest evidence layer:**
 
@@ -237,7 +239,7 @@ ATTACKER                    NETWORK LAYERS              VICTIM (BANK)
 
 ```yaml
 title: Macro-Enabled Office Document Spawning Suspicious Child Process
-id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+id: 2936905a-5f6b-44dc-b6d7-971d2cda85fe
 status: experimental
 description: >
   Detects VBA macro execution resulting in suspicious child processes.
@@ -280,19 +282,16 @@ level: high
 
 ### Splunk SPL — C2 Beacon Detection
 
-```spl
-| Comment: T1071.001 — Suspicious outbound beaconing behaviour
-| Comment: Detects regular interval connections indicative of C2 activity
-| Comment: Author: Bhargav Baranda | Date: 2026-03-06
+T1071.001 — finds hosts making repeated connections to the same destination over more than an hour: the shape of a C2 beacon. Author: Bhargav Baranda · 2026-03-06.
 
+```spl
 index=network earliest=-24h
-| eval connection_hour=strftime(_time, "%Y-%m-%d %H")
 | stats
     count AS connections,
     dc(src_port) AS unique_src_ports,
     values(dest_port) AS dest_ports,
     range(_time) AS session_duration_secs
-    BY src_ip, dest_ip, connection_hour
+    BY src_ip, dest_ip
 | where connections > 10
     AND unique_src_ports > 5
     AND session_duration_secs > 3600
@@ -303,11 +302,13 @@ index=network earliest=-24h
     true(),            40
   )
 | sort - beacon_score
-| table connection_hour, src_ip, dest_ip, connections,
+| table src_ip, dest_ip, connections,
         unique_src_ports, dest_ports, session_duration_secs, beacon_score
 ```
 
-### Microsoft Sentinel KQL — TLS Certificate Anomaly
+### KQL (Microsoft Defender advanced hunting) — TLS Certificate Anomaly
+
+> Written against the Defender for Endpoint schema but not yet run on live data — check the `ActionType` and `AdditionalFields` names in your own tenant before relying on it.
 
 ```kql
 // T1573.001 — Suspicious TLS certificate on outbound C2 connection
@@ -323,7 +324,7 @@ DeviceNetworkEvents
     | extend CertAge = datetime_diff('day', now(), todatetime(AdditionalFields.ValidFrom))
     | extend IsSelfSigned = tobool(AdditionalFields.IsSelfSigned)
     | project Timestamp, DeviceId, RemoteIP, CertAge, IsSelfSigned
-  ) on DeviceId
+  ) on DeviceId, RemoteIP
 | where CertAge < 30 or IsSelfSigned == true
 | project
     Timestamp,
@@ -338,18 +339,18 @@ DeviceNetworkEvents
 
 ---
 
-## 📦 IOC Package
+## 📦 IOCs to Collect
 
-| Type | Value | Confidence | Source | Notes |
-|------|-------|:----------:|--------|-------|
-| Sending IP | [Redacted] | Confirmed | Email headers | Compromised third-party mail server |
-| C2 IP | [Redacted] | Confirmed | Firewall logs | RAT beacon destination |
-| C2 Domain | [Redacted] | Confirmed | DNS logs | Resolved 14hr before detection |
-| File hash (SHA256) | [Redacted] | Confirmed | Sandbox | Macro-enabled Excel attachment |
-| TLS Certificate | [Redacted] | Probable | Proxy logs | Self-signed, issued 3 days prior |
-| Scheduled Task | `\Microsoft\Windows\UpdateCheck` | Confirmed | EDR | RAT persistence mechanism |
+In a live case, these are the indicators I'd pull and where each one comes from:
 
-> IOCs redacted in public portfolio. Full package available on request for legitimate security research.
+| Type | Where to find it | Why it matters |
+|------|------------------|----------------|
+| Sending IP | Email headers | Identifies the compromised third-party mail server |
+| C2 IP | Firewall / proxy logs | The beacon's destination — block it and hunt for other hosts talking to it |
+| C2 domain | DNS logs | Often the earliest indicator — looked up before the first beacon |
+| File hash (SHA256) | Email gateway / sandbox | Finds every copy of the attachment across the estate |
+| TLS certificate | Proxy / TLS inspection logs | Newly issued or self-signed certificates are a common C2 tell |
+| Scheduled task | EDR / Windows event logs | The RAT's persistence — in this scenario `\Microsoft\Windows\UpdateCheck` |
 
 ---
 
@@ -362,7 +363,7 @@ DeviceNetworkEvents
 | **Dwell time** | 14 hours before detection |
 | **Regulatory exposure** | GDPR Article 33 — 72hr ICO notification required if personal data confirmed exfiltrated |
 | **Potential fine** | Up to 4% global annual turnover under GDPR Article 83 |
-| **Estimated remediation** | £15,000–£45,000 (forensic investigation, system rebuild, policy updates) |
+| **Estimated remediation** | £15,000–£45,000 — scenario estimate (forensic investigation, system rebuild, policy updates) |
 | **Reputational risk** | High — financial sector breach carries significant customer trust implications |
 
 ---
@@ -370,26 +371,26 @@ DeviceNetworkEvents
 ## 🔧 Remediation Playbook
 
 ### Immediate (0–4 hours)
-- [x] Isolate compromised workstation from network
-- [x] Block C2 IP and domain at perimeter firewall and DNS sinkhole
-- [x] Revoke active sessions and reset credentials for compromised account
-- [x] Preserve forensic evidence — memory dump, full disk image, log export
-- [x] Delete malicious scheduled task — terminate RAT persistence
+- Isolate compromised workstation from network
+- Block C2 IP and domain at perimeter firewall and DNS sinkhole
+- Revoke active sessions and reset credentials for compromised account
+- Preserve forensic evidence — memory dump, full disk image, log export
+- Delete malicious scheduled task — terminate RAT persistence
 
 ### Short-term (24–72 hours)
-- [x] Full scope review — confirm no lateral movement to other hosts
-- [x] Deploy Sigma rule to all SIEM environments
-- [x] Update email gateway — block macro-enabled attachments from external senders
-- [x] ICO notification assessment — confirm whether personal data was exfiltrated
-- [ ] Mandatory security awareness communication to finance team
+- Full scope review — confirm no lateral movement to other hosts
+- Deploy Sigma rule to all SIEM environments
+- Update email gateway — block macro-enabled attachments from external senders
+- ICO notification assessment — confirm whether personal data was exfiltrated
+- Mandatory security awareness communication to finance team
 
 ### Long-term (weeks/months)
-- [ ] Implement DMARC enforcement on all company email domains
-- [ ] Enable SPF hard fail (`-all`) rather than soft fail (`~all`)
-- [ ] Deploy application allowlisting on finance workstations
-- [ ] Quarterly tabletop exercise — spearphishing scenario
-- [ ] Review and update email security gateway rule set
-- [ ] Enable macro execution logging via Group Policy
+- Implement DMARC enforcement on all company email domains
+- Enable SPF hard fail (`-all`) rather than soft fail (`~all`)
+- Deploy application allowlisting on finance workstations
+- Quarterly tabletop exercise — spearphishing scenario
+- Review and update email security gateway rule set
+- Enable macro execution logging via Group Policy
 
 ---
 
@@ -423,9 +424,9 @@ A layered defence would have caught this attack at multiple points:
 
 ## 🎤 Interview Answer
 
-> *"Walk me through a phishing investigation you've conducted."*
+> *"Walk me through a phishing investigation."*
 
-"In Case-001, I investigated a spearphishing attack against a finance department employee. The attacker impersonated the CFO using a compromised third-party mail server — bypassing IP reputation checks — and delivered a macro-enabled Excel file. I traced the attack through all seven OSI layers: the SPF failure at Layer 3 that an email gateway should have caught, the macro obfuscation at Layer 6 that bypassed AV, and the RAT's HTTPS beacon at Layer 4 using port 443 to blend into legitimate traffic. I mapped nine MITRE ATT&CK techniques from initial access through to C2 persistence, wrote detection rules in Sigma, Splunk SPL, and Microsoft Sentinel KQL, and identified the DNS query to the C2 domain as the earliest detectable indicator — logged before the first beacon fired. The full investigation is documented in my GitHub portfolio."
+"I haven't worked a live phishing incident yet, so I built one as a scenario and worked it end to end. The attacker impersonates a bank's CFO through a compromised third-party mail server — which gets past IP reputation checks — and delivers a macro-enabled Excel file. I traced it through all seven OSI layers: the SPF failure at Layer 3 that an email gateway should catch, the macro obfuscation at Layer 6 that gets past signature-based AV, and the RAT's HTTPS beacon on port 443 blending into normal traffic. I mapped nine MITRE ATT&CK techniques from reconnaissance through to persistence, wrote detection rules in Sigma, Splunk SPL and KQL, and identified the DNS lookup of the C2 domain as the earliest indicator — it's logged before the first beacon fires. It's all documented in my GitHub portfolio, and my fraud work at TTEC is where I learned to read the human side of these attacks."
 
 ---
 
@@ -443,7 +444,7 @@ A layered defence would have caught this attack at multiple points:
 
 <div align="center">
 
-*Investigation #1 of 30 — Case closed.*
+*Investigation #1 of 30 — Scenario closed.*
 *Every layer produced evidence. Every layer offered a detection opportunity.*
 
 </div>
