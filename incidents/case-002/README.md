@@ -34,7 +34,7 @@
 
 Using Wireshark on Kali Linux, live network traffic was captured from a single HTTP request to Google. Ten packets revealed the complete TCP connection lifecycle — three-way handshake, data transfer, and connection termination — across all seven OSI layers simultaneously.
 
-Two security findings emerged: an unencrypted HTTP initiation creating an SSL stripping vulnerability window, and an unknown outbound destination IP requiring threat intelligence verification. Both findings map directly to SOC analyst workflows used daily in enterprise environments.
+Two security findings emerged: a fully plaintext HTTP exchange — including a redirect that stayed on HTTP — that anyone in the middle could read or tamper with, and an unknown outbound destination IP requiring threat intelligence verification. Both findings map directly to SOC analyst workflows used daily in enterprise environments.
 
 **The key insight: every network connection — no matter how mundane — leaves a trail with structure, meaning, and evidence.**
 
@@ -60,7 +60,7 @@ MacBook Pro (Apple Silicon M-series)
 
 | Tactic | Technique | Sub-Technique | Relevance |
 |--------|-----------|--------------|-----------|
-| Collection | T1040 — Network Sniffing | — | Packet capture is what attackers do after compromising a network switch |
+| Credential Access · Discovery | T1040 — Network Sniffing | — | Packet capture is what attackers do after compromising a network switch |
 | Command & Control | T1071 — Application Layer Protocol | T1071.001 — Web Protocols | HTTP/HTTPS used for both legitimate traffic and C2 beaconing |
 | Credential Access | T1557 — Adversary-in-the-Middle | T1557.002 — ARP Cache Poisoning | SSL stripping attack identified in Finding 1 |
 
@@ -97,7 +97,7 @@ Packet 3 |─────────── [ACK] ──────────
 
 **Packet 3 — ACK**
 - Connection officially established
-- Three packets. Three messages. Under one millisecond.
+- Three packets. Three messages. 38 milliseconds.
 - **This handshake happens billions of times every second across the internet. Every website. Every email. Every stream.**
 
 ---
@@ -123,9 +123,9 @@ Host: google.com
 HTTP/1.1 301 Moved Permanently
 Location: http://www.google.com/
 ```
-- Google refuses to serve content over unencrypted HTTP
-- Redirects to HTTPS version
-- **Critical:** The redirect arrives *after* the unencrypted GET was already sent. The vulnerability window already opened and closed.
+- Google redirects `google.com` to `www.google.com`
+- **The redirect is still plain HTTP.** Look at the `Location` header — `http://`, not `https://`. Nothing in this exchange was upgraded to encryption
+- **Critical:** Both the request and Google's reply crossed the network in cleartext. Anyone positioned between my VM and Google could have read or changed either one
 
 **Packet 7 — ACK**
 - Redirect acknowledged. TCP confirming delivery.
@@ -166,7 +166,7 @@ MY KALI MACHINE (192.168.64.3)     GOOGLE'S SERVER (192.178.223.102)
        |                                        |
        |──────────── [GET /] ───────────────>  | "Give me your homepage."
        |  <───────── [ACK] ──────────────────  | "Request received."
-       |  <───────── [301 Redirect] ──────────  | "Use HTTPS instead."
+       |  <───────── [301 Redirect] ──────────  | "Try www.google.com (still HTTP)."
        |──────────── [ACK] ─────────────────>  | "Redirect received."
        |                                        |
        |  ←────── DATA TRANSFER DONE ─────────> |
@@ -216,14 +216,14 @@ No two active connections share the same four values simultaneously.
 **MITRE:** T1557 — Adversary-in-the-Middle
 
 **The issue:**
-Packet 4 — the GET request — travelled across the network completely unencrypted before Google's 301 HTTPS redirect arrived in Packet 6. The vulnerability window lasted approximately 37 milliseconds. Brief. But real.
+All ten packets were plaintext. Packet 4 — the GET request — crossed the network unencrypted, and Google's reply in Packet 6 was a 301 redirect to `http://www.google.com/`: another plain-HTTP address. Nothing in this capture moved the connection onto HTTPS.
 
 **The SSL stripping attack scenario:**
 
 An attacker with network access (via ARP poisoning at Layer 2) could:
-1. Intercept Packet 4 — the unencrypted GET request — in transit
-2. Block Packet 6 — the 301 redirect — from reaching the victim
-3. Maintain the victim on HTTP permanently
+1. Read Packet 4 — the unencrypted GET request — in transit
+2. Read or rewrite Packet 6 — the redirect — before it reaches the victim
+3. Strip out any later redirect to HTTPS, so the victim never leaves plain HTTP
 4. Read all subsequent traffic in cleartext
 
 The victim's browser shows HTTP. They never know they should have been on HTTPS. The attacker reads everything — session cookies, authentication tokens, request content.
@@ -312,13 +312,10 @@ level: medium
 
 ### Splunk SPL — C2 Beacon Pattern Detection
 
-```spl
-| Comment: T1071.001 — Detecting regular-interval outbound connections
-| Comment: Beacon pattern: same destination, different ephemeral ports, regular timing
-| Comment: Author: Bhargav Baranda | Date: 2026-03-06
+T1071.001 — finds hosts making many connections to the same destination from many different ephemeral ports over more than an hour: the shape of a C2 beacon. Author: Bhargav Baranda · 2026-03-06.
 
+```spl
 index=network earliest=-24h
-| eval bucket_5min=strftime(_time,"%Y-%m-%d %H:%M")
 | stats
     count AS connections,
     dc(src_port) AS unique_src_ports,
@@ -327,10 +324,10 @@ index=network earliest=-24h
 | where connections > 20
     AND unique_src_ports > 10
     AND duration_secs > 3600
-| eval beacon_indicator=if(
+| eval beacon_indicator=case(
     connections > 50 AND unique_src_ports > 20, "HIGH",
     connections > 20 AND unique_src_ports > 10, "MEDIUM",
-    "LOW"
+    true(), "LOW"
   )
 | where beacon_indicator IN ("HIGH","MEDIUM")
 | sort - connections
@@ -414,36 +411,4 @@ Every network connection — every single one, no matter how mundane — leaves 
 
 The curl command took less than a second. In that second, my machine generated 10 packets revealing: my IP address, my MAC address, my ephemeral port, the destination, the protocol, whether encryption was in use, how the connection opened, what data was requested, what response arrived, and how it closed.
 
-**An attacker running a RAT generates the same trail.** Different destination. Different connection pattern. But the same fundamental structure. Packets. Flags. Ports. Timing. Trail.
-
-A SOC analyst who understands what legitimate traffic looks like can spot what illegitimate traffic looks like. **That contrast is the entire job.**
-
----
-
-## 🎤 Interview Answer
-
-> *"Describe your home lab. What's the most complex thing you've detected?"*
-
-"I run Wireshark on Kali Linux ARM64 in UTM on Apple Silicon — a setup that required documented workarounds to get working, which are published on my GitHub. In a traffic analysis exercise I captured a complete TCP connection lifecycle across ten packets and read the evidence at every OSI layer simultaneously. I identified two security findings: an unencrypted HTTP initiation creating an SSL stripping vulnerability window, and an unknown outbound IP requiring threat intelligence verification. I mapped both to MITRE ATT&CK and wrote detection rules in Sigma, SPL, and KQL. The key insight was that legitimate traffic and malicious traffic share identical packet-level structure — the difference is destination, timing, and pattern. That contrast is how SOC analysts catch C2 beacons."
-
----
-
-## 🔗 Related Work
-
-| Resource | Link |
-|----------|------|
-| Case-001 — Phishing Investigation | [`../case-001/`](../case-001/) |
-| Detection Rules — Sigma | [`/detection-rules/sigma/`](../../detection-rules/sigma/) |
-| Detection Rules — SPL | [`/detection-rules/splunk-spl/`](../../detection-rules/splunk-spl/) |
-| Detection Rules — KQL | [`/detection-rules/sentinel-kql/`](../../detection-rules/sentinel-kql/) |
-| Lab Setup — Wireshark | [`/lab-setup/kali-utm/`](../../lab-setup/kali-utm/) |
-| YouTube Video | 🔄 In production — [Granger Security](https://youtube.com/@Granger-Security) |
-
----
-
-<div align="center">
-
-*Investigation #2 of 30 — Case closed.*
-*Ten packets. Every layer. The trail was always there.*
-
-</div>
+**An attacker running a RAT generates the same trail.** Different destination. Different connection pattern. But the same
