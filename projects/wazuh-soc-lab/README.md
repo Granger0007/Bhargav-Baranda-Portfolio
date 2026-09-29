@@ -101,6 +101,8 @@ Three panels, built on the `wazuh-archives` index:
 | **Windows Account Changes Over Time** | Line chart, split by event ID | `data.win.system.eventID: ("4720" OR "4722" OR "4723" OR "4724" OR "4725" OR "4726" OR "4732" OR "4733" OR "4738")` | Accounts created, enabled, reset, disabled, deleted or added to groups — the changes an attacker makes to stay in. |
 | **Linux Failed SSH Authentication Activity** | Data table | `"Failed password"` on `Bhargav-Linux`, split by `data.srcuser`, `data.dstuser`, `data.srcip` | Who is trying to log in, as which user, from where. |
 
+> **Correction, 29 September:** reviewing my submitted screenshot, the account-changes panel was showing every Windows event ID — 4624 logons, 4672 privileged logons and more — not just the account-change IDs. The query hadn't been saved inside the visualisation. The query above is what the panel should use. Lesson: save the query in the visualisation itself, then check the legend only shows the IDs you asked for.
+
 ---
 
 ## 📁 File Integrity Monitoring
@@ -251,7 +253,6 @@ The Linux agent was on a public IP, so real attackers were already trying SSH pa
 "In the MYDFIR Wazuh challenge I built a SIEM from scratch — the server on a cloud VM because my Mac only has 8 GB of RAM, a Windows agent in UTM and a Linux agent in the cloud. I set up a Wazuh rule that fires when three SSH logins fail from the same IP within two minutes, tied it to Wazuh's firewall-drop active response, and tested it with a continuous ping from my Mac — when I failed three passwords, the ping stopped. The part I didn't expect was that the Linux agent was on a public IP, so within minutes it was blocking real attackers from the internet on its own. When I cleaned up, I confirmed my own IP first, removed only that from both iptables chains, and left the three real attackers blocked. The honest gap is Sysmon — the driver was blocked on Windows 11 ARM, and I worked through the documented causes before moving to the native event log so the deadline didn't slip."
 
 ---
-
 
 <div align="center">
 
