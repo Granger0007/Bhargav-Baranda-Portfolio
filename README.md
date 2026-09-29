@@ -20,7 +20,9 @@
 
 ## What's in This Portfolio
 
-Ten write-ups from my own ARM64 home lab. They're a mix of two kinds of work:
+**Latest:** [Wazuh SOC Lab](./projects/wazuh-soc-lab/) — a full SIEM build on a cloud server, with two custom detections and an automatic SSH block that caught real attackers from the internet.
+
+The ten labs below come from my own ARM64 home lab. They're a mix of two kinds of work:
 
 - **Hands-on labs** — real captures, scans and logs from my own machines: Wireshark, tshark, Nmap, dig, syslog and Windows event logs.
 - **Scenario-based investigations** — a realistic attack traced end to end, to practise the analysis and the response.
@@ -55,7 +57,7 @@ Vultr cloud servers — 2 vCPU / 8 GB / London, one per project
 └── Elastic Stack       →  Elastic challenge: Elasticsearch · Kibana · Sysmon  (in progress)
 ```
 
-Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Splunk on ARM64](./lab-setup/splunk-arm64/) · [Suricata](./lab-setup/suricata-ids/)
+Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](./lab-setup/wazuh-setup/) · [Splunk on ARM64](./lab-setup/splunk-arm64/) · [Suricata](./lab-setup/suricata-ids/)
 
 ---
 
@@ -104,6 +106,7 @@ Coverage grows with every lab. Each case README maps its techniques to what was 
 
 | | Project | Description | Stack | Status |
 |:-:|---------|-------------|-------|:------:|
+| 🔎 | [Wazuh SOC Lab — MYDFIR Wazuh Challenge](./projects/wazuh-soc-lab/) | Wazuh SIEM on a cloud server with Windows and Linux agents, file integrity monitoring, two custom detections and an automatic SSH block that caught real attackers | Wazuh 4.14 · Vultr · UTM · Windows 11 ARM64 · Ubuntu 24.04 | ✅ Completed |
 | 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Free AI scam checker — paste a suspicious message, get a verdict with a confidence score, reasons and next steps | Claude API · Cloudflare Workers · Cloudflare AI Gateway | 🟢 Live |
 
 ---
