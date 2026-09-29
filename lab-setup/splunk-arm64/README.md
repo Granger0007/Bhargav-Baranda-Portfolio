@@ -1,6 +1,6 @@
 # Splunk on ARM64 — Docker Workaround
 
-**Platform:** MacBook Pro Apple Silicon (M-series) → VirtualBox → Kali Linux ARM64
+**Platform:** MacBook Pro Apple Silicon (M-series) → UTM → Kali Linux ARM64
 **Problem:** Splunk Enterprise ships x86_64 only. No native ARM64 installer.
 **Solution:** Docker with QEMU emulation layer.
 
