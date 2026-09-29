@@ -1,13 +1,15 @@
 # Investigation 001: Phishing Email Traced Through OSI Model
 
+> **Training scenario.** This is a scenario-based analysis built to practise tracing one attack through all seven OSI layers — not a live incident I worked. The evidence sources, detection rules and playbook are the ones I'd use on a real case.
+
 ## Executive Summary
 
-A spearphishing campaign targeting UK financial services was analyzed by tracing a single malicious email through all seven layers of the OSI model. The investigation identified four distinct MITRE ATT&CK techniques and documented specific defender evidence available at each network layer. This analysis demonstrates how understanding network fundamentals enables comprehensive threat detection across the entire attack chain.
+A spearphishing campaign targeting UK financial services was analysed by tracing a single malicious email through all seven layers of the OSI model. The investigation identified six MITRE ATT&CK techniques and documented specific defender evidence available at each network layer. This analysis demonstrates how understanding network fundamentals enables comprehensive threat detection across the entire attack chain.
 
 **Key Findings:**
 - Initial access via spearphishing attachment (T1566.001)
 - Command and control over encrypted HTTPS (T1071.001)
-- Defense evasion through file obfuscation (T1027)
+- Defence evasion through file obfuscation (T1027)
 - Compromised third-party server used as mail relay (T1584.004)
 
 ---
@@ -17,11 +19,11 @@ A spearphishing campaign targeting UK financial services was analyzed by tracing
 | Field | Details |
 |-------|---------|
 | **Incident ID** | 001 |
-| **Date Analyzed** | February 2026 |
+| **Date Analysed** | February 2026 |
 | **Attack Type** | Spearphishing with Macro-Enabled Attachment |
 | **Target** | Finance employee at UK banking institution |
 | **Severity** | 🔴 Critical |
-| **MITRE Tactics** | Initial Access, Execution, Defense Evasion, Command & Control |
+| **MITRE Tactics** | Resource Development, Initial Access, Execution, Defense Evasion, Command & Control |
 
 ---
 
@@ -44,7 +46,7 @@ A spearphishing campaign targeting UK financial services was analyzed by tracing
 ### Layer 7 — Application Layer
 
 **What Happened:**
-The finance employee's email client (using SMTP protocol) receives and renders the phishing email. The message displays as a convincing CFO impersonation. Upon opening the Excel attachment, the embedded macro executes. The RAT payload initiates C2 communication using HTTPS over port 443, blending with legitimate web traffic.
+The phishing email arrives at the organisation's mail server over SMTP, and the finance employee's email client renders it. The message displays as a convincing CFO impersonation. Upon opening the Excel attachment, the embedded macro executes. The RAT payload initiates C2 communication using HTTPS over port 443, blending with legitimate web traffic.
 
 **Protocols Involved:**
 - SMTP (Simple Mail Transfer Protocol) - Email delivery
@@ -106,11 +108,11 @@ High-value indicators:
 ### Layer 5 — Session Layer
 
 **What Happened:**
-An SMTP session is established between the attacker's compromised mail server and the victim organization's mail server. Authentication occurs, and the email transfer session is maintained until completion. Post-compromise, the RAT maintains a persistent session with the C2 server, periodically sending keepalive beacons to maintain the connection.
+An SMTP session is established between the attacker's compromised mail server and the victim organisation's mail server. Authentication occurs, and the email transfer session is maintained until completion. Post-compromise, the RAT maintains a persistent session with the C2 server, periodically sending keepalive beacons to maintain the connection.
 
 **Defender Evidence:**
 - Abnormally long-duration sessions to external IPs
-- Session persistence patterns inconsistent with normal user behavior
+- Session persistence patterns inconsistent with normal user behaviour
 - Authentication logs showing mail server sessions from suspicious sources
 - Frequent reconnection attempts after initial access
 
@@ -121,7 +123,7 @@ An SMTP session is established between the attacker's compromised mail server an
 ```
 High-value indicators:
 - Sessions lasting hours/days to unknown external IPs
-- Beaconing behavior (regular interval connections)
+- Beaconing behaviour (regular interval connections)
 - Session establishment from internal hosts to non-standard destinations
 - Multiple session resets/reconnections in short timeframes
 ```
@@ -159,7 +161,7 @@ High-value indicators:
 ### Layer 3 — Network Layer
 
 **What Happened:**
-The phishing email travels as IP packets from the attacker's compromised server (source IP) to the victim organization's mail server (destination IP). Each router along the path reads the destination IP address and makes forwarding decisions. The attacker deliberately used a compromised third-party server to obscure their true origin IP and complicate attribution.
+The phishing email travels as IP packets from the attacker's compromised server (source IP) to the victim organisation's mail server (destination IP). Each router along the path reads the destination IP address and makes forwarding decisions. The attacker deliberately used a compromised third-party server to obscure their true origin IP and complicate attribution.
 
 **Protocols Involved:**
 - IP (Internet Protocol) - IPv4/IPv6
@@ -179,7 +181,7 @@ The phishing email travels as IP packets from the attacker's compromised server 
 High-value indicators:
 - Source IPs on threat intelligence blocklists
 - Geolocation mismatches (claimed sender vs. actual IP location)
-- IP reputation scores below organizational threshold
+- IP reputation scores below organisational threshold
 - Sender IPs with short domain registration history
 ```
 
@@ -217,12 +219,12 @@ High-value indicators:
 ### Layer 1 — Physical Layer
 
 **What Happened:**
-Electrical signals (copper Ethernet), light pulses (fiber optic), or radio waves (Wi-Fi) physically transmit the phishing email data across network infrastructure. The attack traffic appears identical to legitimate traffic at this layer—there is no inherent "malicious" electrical signal. Physical layer attacks in this scenario are unlikely but could include rogue Wi-Fi access points or hardware implants.
+Electrical signals (copper Ethernet), light pulses (fibre optic), or radio waves (Wi-Fi) physically transmit the phishing email data across network infrastructure. The attack traffic appears identical to legitimate traffic at this layer—there is no inherent "malicious" electrical signal. Physical layer attacks in this scenario are unlikely but could include rogue Wi-Fi access points or hardware implants.
 
 **Defender Evidence:**
 - Physical port monitoring (unused ports suddenly active)
 - Wireless intrusion detection (rogue access points)
-- Data center physical security logs
+- Data centre physical security logs
 - Cable plant integrity monitoring
 
 **MITRE ATT&CK Mapping:**
@@ -234,12 +236,12 @@ High-value indicators:
 - Unexpected devices detected on physical network ports
 - Rogue wireless access points broadcasting corporate SSIDs
 - Unusual signal patterns in RF monitoring
-- Physical security alerts (unauthorized data center access)
+- Physical security alerts (unauthorised data centre access)
 ```
 
 ---
 
-## Complete Attack Flow Visualization
+## Complete Attack Flow Visualisation
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │ Layer 7: Application                                            │
@@ -287,7 +289,7 @@ High-value indicators:
 ┌─────────────────────────────────────────────────────────────────┐
 │ Layer 1: Physical                                               │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │ Electrical signals → Fiber optic → Wi-Fi radio waves       │ │
+│ │ Electrical signals → Fibre optic → Wi-Fi radio waves       │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -321,8 +323,8 @@ alert tcp any any -> any 443 (msg:"Possible RAT Beacon - Regular HTTPS Intervals
 ### Sigma Rule (Layer 7 - Email Gateway)
 ```yaml
 title: Spearphishing Attachment with Macro
-id: phishing-001-macro-attachment
-status: stable
+id: b578f8c0-ae28-4369-9590-0877a32cf932
+status: experimental
 description: Detects email delivery with macro-enabled Office attachments
 author: Bhargav Baranda
 date: 2026/02/10
@@ -368,7 +370,7 @@ network.bytes < 5000
 ### Short-Term Actions (1-24 Hours)
 
 1. **Hunt for additional infections** - Search SIEM for similar C2 patterns across fleet
-2. **Analyze macro payload** - Reverse engineer to identify full capabilities
+2. **Analyse macro payload** - Reverse engineer to identify full capabilities
 3. **Review email gateway logs** - Identify all recipients of phishing campaign
 4. **Update detection rules** - Deploy new Sigma/Suricata rules based on IOCs
 
@@ -385,7 +387,7 @@ network.bytes < 5000
 
 ### What Worked Well
 
-- Multi-layer defense strategy provided detection opportunities at Layers 3, 6, and 7
+- Multi-layer defence strategy provided detection opportunities at Layers 3, 6, and 7
 - Email gateway SPF checks flagged suspicious sender at Layer 7
 - Network monitoring identified unusual C2 beaconing at Layer 4
 
@@ -408,7 +410,7 @@ network.bytes < 5000
 
 **CompTIA Security+ SY0-701 Coverage:**
 
-- **Objective 1.4** - Given a scenario, analyze potential indicators associated with network attacks
+- **Objective 2.4** - Given a scenario, analyze indicators of malicious activity
 - **Objective 2.2** - Explain common threat vectors and attack surfaces
 - **Objective 4.1** - Given a scenario, apply common security techniques to computing resources
 
@@ -428,7 +430,8 @@ network.bytes < 5000
 ## References
 
 - MITRE ATT&CK Framework: https://attack.mitre.org/
-- OSI Model RFC 1122: https://www.rfc-editor.org/rfc/rfc1122
+- OSI reference model: ISO/IEC 7498-1
+- Requirements for Internet Hosts (TCP/IP), RFC 1122: https://www.rfc-editor.org/rfc/rfc1122
 - Suricata Rule Documentation: https://suricata.io/
 - Sigma Detection Rule Repository: https://github.com/SigmaHQ/sigma
 
