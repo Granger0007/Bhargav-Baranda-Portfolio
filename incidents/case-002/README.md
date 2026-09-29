@@ -22,7 +22,7 @@
 | **Date** | 2026-03-06 |
 | **Lab Type** | Network Traffic Analysis |
 | **Tool** | Wireshark |
-| **Environment** | Kali Linux ARM64 — VirtualBox — MacBook Pro Apple Silicon |
+| **Environment** | Kali Linux ARM64 — UTM — MacBook Pro Apple Silicon |
 | **Network Interface** | eth0 — IP: 192.168.64.3 |
 | **Target** | http://google.com → 192.178.223.102 |
 | **Analyst** | Bhargav Baranda |
@@ -44,7 +44,7 @@ Two security findings emerged: an unencrypted HTTP initiation creating an SSL st
 
 ```
 MacBook Pro (Apple Silicon M-series)
-└── VirtualBox
+└── UTM
     └── Kali Linux ARM64
         ├── Interface: eth0
         ├── IP Address: 192.168.64.3
@@ -424,7 +424,7 @@ A SOC analyst who understands what legitimate traffic looks like can spot what i
 
 > *"Describe your home lab. What's the most complex thing you've detected?"*
 
-"I run Wireshark on Kali Linux ARM64 in VirtualBox on Apple Silicon — a setup that required documented workarounds to get working, which are published on my GitHub. In a traffic analysis exercise I captured a complete TCP connection lifecycle across ten packets and read the evidence at every OSI layer simultaneously. I identified two security findings: an unencrypted HTTP initiation creating an SSL stripping vulnerability window, and an unknown outbound IP requiring threat intelligence verification. I mapped both to MITRE ATT&CK and wrote detection rules in Sigma, SPL, and KQL. The key insight was that legitimate traffic and malicious traffic share identical packet-level structure — the difference is destination, timing, and pattern. That contrast is how SOC analysts catch C2 beacons."
+"I run Wireshark on Kali Linux ARM64 in UTM on Apple Silicon — a setup that required documented workarounds to get working, which are published on my GitHub. In a traffic analysis exercise I captured a complete TCP connection lifecycle across ten packets and read the evidence at every OSI layer simultaneously. I identified two security findings: an unencrypted HTTP initiation creating an SSL stripping vulnerability window, and an unknown outbound IP requiring threat intelligence verification. I mapped both to MITRE ATT&CK and wrote detection rules in Sigma, SPL, and KQL. The key insight was that legitimate traffic and malicious traffic share identical packet-level structure — the difference is destination, timing, and pattern. That contrast is how SOC analysts catch C2 beacons."
 
 ---
 
@@ -436,7 +436,7 @@ A SOC analyst who understands what legitimate traffic looks like can spot what i
 | Detection Rules — Sigma | [`/detection-rules/sigma/`](../../detection-rules/sigma/) |
 | Detection Rules — SPL | [`/detection-rules/splunk-spl/`](../../detection-rules/splunk-spl/) |
 | Detection Rules — KQL | [`/detection-rules/sentinel-kql/`](../../detection-rules/sentinel-kql/) |
-| Lab Setup — Wireshark | [`/lab-setup/kali-virtualbox/`](../../lab-setup/kali-virtualbox/) |
+| Lab Setup — Wireshark | [`/lab-setup/kali-utm/`](../../lab-setup/kali-utm/) |
 | YouTube Video | 🔄 In production — [Granger Security](https://youtube.com/@Granger-Security) |
 
 ---
