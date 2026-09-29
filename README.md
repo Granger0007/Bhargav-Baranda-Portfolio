@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:EE3124&height=180&section=header&text=Security%20Operations%20Portfolio&fontSize=40&fontColor=ffffff&fontAlignY=38&desc=Bhargav%20Baranda%20%7C%20SOC%20Analyst%20%7C%20Detection%20Engineer&descSize=16&descAlignY=58&descColor=EE3124" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:EE3124&height=180&section=header&text=Security%20Operations%20Portfolio&fontSize=40&fontColor=ffffff&fontAlignY=38&desc=Bhargav%20Baranda%20%C2%B7%20Security%2B%20%C2%B7%20ISC%C2%B2%20CC%20%C2%B7%20MSc%20Information%20Security&descSize=16&descAlignY=58&descColor=EE3124" />
 
 [![ISC²](https://img.shields.io/badge/ISC²-Certified_in_Cybersecurity-00599C?style=for-the-badge&logoColor=white)](https://www.isc2.org/certifications/cc)
 [![Security+](https://img.shields.io/badge/CompTIA-Security+_Certified-EE3124?style=for-the-badge)](https://www.comptia.org/certifications/security)
@@ -18,36 +18,44 @@
 
 ---
 
-## What This Portfolio Demonstrates
+## What's in This Portfolio
 
-Every investigation here was conducted in a purpose-built ARM64 home lab using enterprise-grade tools. This is not coursework — it is real detection engineering, documented to production standards.
+Ten write-ups from my own ARM64 home lab. They're a mix of two kinds of work:
 
-Every piece of work meets the same bar:
+- **Hands-on labs** — real captures, scans and logs from my own machines: Wireshark, tshark, Nmap, dig, syslog and Windows event logs.
+- **Scenario-based investigations** — a realistic attack traced end to end, to practise the analysis and the response.
 
-- **MITRE ATT&CK** mapped at sub-technique level — tactic → technique → sub-technique → observed procedure
-- **Detection triad** — Sigma (SIEM-agnostic) + Splunk SPL + Microsoft Sentinel KQL
-- **Business impact** — systems affected, regulatory exposure (GDPR/ICO), £ estimate
-- **Remediation playbook** — 0–4hr containment, 24–72hr eradication, long-term prevention
-- **IOC package** — IPs, domains, hashes with confidence ratings
+What each write-up covers:
+
+- **MITRE ATT&CK** mapping at sub-technique level — tactic → technique → sub-technique → what was observed
+- **Detection rules** — in seven of the ten, the same logic written three ways: Sigma (SIEM-agnostic), Splunk SPL and KQL
+- **Remediation** — containment, eradication and longer-term prevention, where the lab calls for it
+- **Business impact** — systems affected and regulatory exposure (GDPR / ICO) for the investigations
 
 ---
 
 ## Home Lab
 
+> Enterprise SOC tools assume x86_64. My machine is an Apple Silicon Mac (ARM64) with 8 GB of RAM.
+> So light work runs locally, and anything SIEM-sized goes on a cloud server. Every workaround is documented, so anyone on Apple Silicon can reproduce it.
+
 ```
-MacBook Pro — Apple Silicon M-series (ARM64)
-└── UTM Virtualisation
+MacBook Pro — Apple Silicon M-series (ARM64, 8 GB)
+└── UTM
     └── Kali Linux ARM64
-        ├── SIEM            →  Splunk (Docker/containerised)  +  ELK Stack 8.x
-        ├── IDS / EDR       →  Suricata 7.x  +  Wazuh 4.x
-        ├── Network         →  Wireshark 4.6.x · tcpdump · Nmap 7.99
-        ├── Forensics       →  Volatility 3 · tshark · NetworkMiner
+        ├── Network         →  Wireshark 4.6.x · tshark · tcpdump · Nmap 7.99
+        ├── IDS             →  Suricata 7.x
+        ├── SIEM (local)    →  Splunk in Docker (x86 emulation)
+        ├── Forensics       →  Volatility 3 · NetworkMiner
         ├── Detection Eng   →  Sigma · SPL · KQL
-        ├── Offensive       →  Burp Suite · apktool · jadx · ADB
-        └── Infrastructure  →  Docker containers — £0 cloud spend
+        └── Offensive       →  Burp Suite · apktool · jadx · ADB
+
+Vultr cloud servers — 2 vCPU / 8 GB / London, one per project
+├── Wazuh 4.x           →  Wazuh challenge, Sept 2026: server + Ubuntu agent  (deleted after submission)
+└── Elastic Stack       →  Elastic challenge: Elasticsearch · Kibana · Sysmon  (in progress)
 ```
 
-> Enterprise SOC tools assume x86_64. My machine is Apple Silicon ARM64. Every workaround is documented and published — reproducible by any analyst on Apple Silicon.
+Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Splunk on ARM64](./lab-setup/splunk-arm64/) · [Suricata](./lab-setup/suricata-ids/)
 
 ---
 
@@ -66,25 +74,29 @@ MacBook Pro — Apple Silicon M-series (ARM64)
 | 009 | 🔵 Lab | [Wireshark Deep Dive — Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | T1040 · T1557 · T1071 · tshark · TCP flag analysis · HTTP NSE extraction · SSH banner forensics | ✅ |
 | 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | ✅ |
 
-**Key:** 🔴 Incident Investigation &nbsp;·&nbsp; 🔵 Lab Setup &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
+**Key:** 🔴 Investigation &nbsp;·&nbsp; 🔵 Lab &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
 
 ---
 
 ## MITRE ATT&CK Coverage
 
-```
-Reconnaissance   ████████░░  T1590 · T1046 · T1498 · T1595
-Initial Access   ████░░░░░░  T1566.001 · T1190 · T1133
-Execution        ██░░░░░░░░  T1204.002 · T1059.005
-Defence Evasion  ████░░░░░░  T1036 · T1071 · T1573 · T1027
-Credential Acc.  ████░░░░░░  T1110 · T1040 · T1557.002
-Discovery        ██████░░░░  T1046 · T1590 · T1018 · T1210
-Lateral Movement ██░░░░░░░░  T1021.001 · T1021.002
-C2               ████░░░░░░  T1071.001 · T1071.004 · T1571
-Exfiltration     ██░░░░░░░░  T1041 · T1048.003
-```
+Techniques covered across the labs, grouped by tactic:
 
-Coverage expands with every lab. Full technique-to-investigation mapping in each case README.
+| Tactic | Techniques |
+|---|---|
+| Reconnaissance | T1590.002 · T1595.001 |
+| Resource Development | T1584.004 |
+| Initial Access | T1566.001 · T1190 · T1133 · T1078 |
+| Execution | T1204.002 · T1059.005 |
+| Defence Evasion | T1027 · T1036 · T1599 |
+| Credential Access | T1110 · T1040 · T1557.002 |
+| Discovery | T1046 · T1018 · T1040 |
+| Lateral Movement | T1021.001 · T1021.002 · T1210 |
+| Command and Control | T1071.001 · T1071.004 · T1573.001 · T1571 |
+| Exfiltration | T1041 · T1048.003 |
+| Impact | T1498.002 |
+
+Coverage grows with every lab. Each case README maps its techniques to what was actually observed.
 
 ---
 
@@ -92,7 +104,7 @@ Coverage expands with every lab. Full technique-to-investigation mapping in each
 
 | | Project | Description | Stack | Status |
 |:-:|---------|-------------|-------|:------:|
-| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Live AI scam detector — paste any suspicious message, receive an instant verdict with confidence score, reasons, and action guide | Claude AI · Cloudflare Workers · Cloudflare AI Gateway | 🔴 Live |
+| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Free AI scam checker — paste a suspicious message, get a verdict with a confidence score, reasons and next steps | Claude API · Cloudflare Workers · Cloudflare AI Gateway | 🟢 Live |
 
 ---
 
@@ -100,14 +112,15 @@ Coverage expands with every lab. Full technique-to-investigation mapping in each
 
 | Area | Skills |
 |------|--------|
-| **SIEM** | Splunk SPL (search, stats, eval, rex, timechart, correlation searches) · Microsoft Sentinel KQL · ELK Stack 8.x |
-| **Detection Engineering** | Sigma · Splunk SPL · Microsoft Sentinel KQL · False positive tuning · Evasion gap analysis |
-| **Incident Response** | NIST SP 800-61 lifecycle · Timeline reconstruction · Root cause analysis · GDPR Article 33 / ICO 72hr |
+| **SIEM** | Wazuh (cloud deployment, custom rules) · Elastic / ELK · Splunk SPL — search, stats, eval, rex, timechart |
+| **Detection Engineering** | Sigma · Splunk SPL · KQL · Wazuh custom rules · MITRE ATT&CK mapping · False-positive tuning |
+| **Incident Response** | NIST SP 800-61r3 · Timeline reconstruction · Root cause analysis · GDPR Article 33 / ICO 72-hour reporting |
 | **Threat Intelligence** | MITRE ATT&CK at sub-technique level · IOC extraction · CISA KEV · NCSC advisories · VirusTotal · OTX |
-| **Network Analysis** | Wireshark · tshark · tcpdump · Suricata IDS · DNS enumeration · Packet forensics · TLS inspection |
+| **Network Analysis** | Wireshark · tshark · tcpdump · Suricata IDS · DNS enumeration · Packet analysis · TLS inspection |
+| **Identity** | Microsoft Entra ID — MFA, Conditional Access, role-based access control |
 | **Offensive Tools** | Nmap · Burp Suite · apktool · jadx · ADB · OWASP Top 10 / Mobile Top 10 |
-| **Infrastructure** | Docker · Kali Linux ARM64 · UTM · Wazuh EDR |
-| **Scripting** | Python · Bash · SPL · KQL · Sigma |
+| **Infrastructure** | Kali Linux ARM64 · UTM · Docker · Vultr cloud servers |
+| **Languages** | Python · Bash · SPL · KQL · Sigma (YAML) |
 
 ---
 
@@ -115,24 +128,24 @@ Coverage expands with every lab. Full technique-to-investigation mapping in each
 
 | Credential | Institution | Status |
 |---|---|:---:|
-| MSc Information Security | Royal Holloway, University of London (NCSC/GCHQ ACE-CSR) | ✅ Completed 2025 |
-| Certified in Cybersecurity (CC) | ISC² | ✅ Active |
+| MSc Information Security | Royal Holloway, University of London — NCSC-recognised ACE-CSR | ✅ Completed 2025 |
 | CompTIA Security+ SY0-701 | CompTIA | ✅ Certified Aug 2026 |
-| Splunk Core Certified User | Splunk | 🎯 Planned Q3 2026 |
+| Certified in Cybersecurity (CC) | ISC² | ✅ Active |
+| Splunk Core Certified User | Splunk | 🎯 Planned Q4 2026 |
 
 ---
 
 ## Granger Security — YouTube
 
-89 videos covering CVE analysis, threat intelligence, lab walkthroughs, and Security+ exam prep. Built for aspiring SOC analysts and career changers.
+230+ videos and Shorts since 2022 — daily explainer series on AI security, SOC analysis and Python, plus longer CVE breakdowns and Security+ content. Built for aspiring SOC analysts and career changers.
 
-[![YouTube](https://img.shields.io/badge/▶_Watch-Granger_Security_(89_videos)-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@Granger-Security)
+[![YouTube](https://img.shields.io/badge/▶_Watch-Granger_Security-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@Granger-Security)
 
-Every investigation in this portfolio has a companion video. Links are in each case README.
+Companion videos for the investigations here are in production — each case README will link its video once it's live.
 
 ---
 
-## 2026 Roadmap
+## Roadmap
 
 ```
 2025
@@ -140,30 +153,32 @@ Every investigation in this portfolio has a companion video. Links are in each c
  └── ✅  ISC² Certified in Cybersecurity (CC)
 
 Q1–Q2 2026
- ├── ✅  SOC Lab Programme — Labs 001–010 complete
- ├── ✅  OZONE Shield — live AI scam detector (ozone-shield.bbaranda055.workers.dev)
- └── 🔄  UK SOC Analyst job applications          ← active
+ ├── ✅  SOC Lab Programme — Labs 001–010
+ └── ✅  OZONE Shield — live AI scam checker
 
 Q3 2026
- ├── ✅  CompTIA Security+ SY0-701 — passed, first attempt
- ├── 🔄  SOC Analyst role — UK market              ← active
- └── 🎯  Splunk Core Certified User
+ ├── ✅  CompTIA Security+ SY0-701 — passed first attempt
+ ├── ✅  MYDFIR Wazuh SOC Analyst Challenge
+ ├── 🔄  MYDFIR Elastic SOC Challenge
+ └── 🔄  UK SOC Analyst applications              ← active
 
 Q4 2026
+ ├── 🎯  Splunk Core Certified User
  ├── 🎯  Splunk Power User
  ├── 🎯  BTL1 / eJPT
  └── 🎯  Open-source Sigma contributions
 
 2027
  ├── 🎯  CompTIA CySA+
- └── 🎯  Cloud Security — AZ-500 / AWS Security Specialty
+ ├── 🎯  Cloud security — AZ-500 / AWS Security Specialty
+ └── 🎯  Detection engineering specialism
 ```
 
 ---
 
 ## Contact
 
-**Actively seeking SOC Analyst roles across the UK market.**
+**Looking for an L1 / L2 SOC Analyst role anywhere in the UK.**
 
 | | |
 |---|---|
@@ -176,7 +191,7 @@ Q4 2026
 
 <div align="center">
 
-*Built in public. Every rule, investigation, and writeup is free to use under the MIT License.*
+*Built in public. Every rule, investigation and write-up is free to use under the MIT License.*
 
 ![Labs](https://img.shields.io/badge/Labs_Complete-10-EE3124?style=for-the-badge)
 ![Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=for-the-badge)
