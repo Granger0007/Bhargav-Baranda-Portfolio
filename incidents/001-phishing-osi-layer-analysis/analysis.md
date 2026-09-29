@@ -8,7 +8,7 @@ A spearphishing campaign targeting UK financial services was analyzed by tracing
 - Initial access via spearphishing attachment (T1566.001)
 - Command and control over encrypted HTTPS (T1071.001)
 - Defense evasion through file obfuscation (T1027)
-- Infrastructure acquisition via compromised third-party server (T1583.004)
+- Compromised third-party server used as mail relay (T1584.004)
 
 ---
 
@@ -172,7 +172,7 @@ The phishing email travels as IP packets from the attacker's compromised server 
 - Routing path analysis via traceroute
 
 **MITRE ATT&CK Mapping:**
-- **T1583.004** - Acquire Infrastructure: Server (compromised mail relay)
+- **T1584.004** - Compromise Infrastructure: Server (compromised mail relay)
 
 **Detection Opportunities:**
 ```
@@ -303,7 +303,7 @@ High-value indicators:
 | Defense Evasion | T1027 | Obfuscated Files or Information | Layer 6 |
 | Command & Control | T1071.001 | Application Layer Protocol: Web Protocols | Layer 7 |
 | Command & Control | T1573 | Encrypted Channel | Layer 6 |
-| Resource Development | T1583.004 | Acquire Infrastructure: Server | Layer 3 |
+| Resource Development | T1584.004 | Compromise Infrastructure: Server | Layer 3 |
 
 ---
 
