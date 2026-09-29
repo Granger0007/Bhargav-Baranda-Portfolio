@@ -252,14 +252,6 @@ The Linux agent was on a public IP, so real attackers were already trying SSH pa
 
 ---
 
-## 📎 Evidence
-
-- Dashboard screenshot — *to be added*
-- Custom alert (rule 100200) screenshot — *to be added*
-- Active response hits in Discover — *to be added*
-- Investigation report (PDF) — *to be added*
-
----
 
 <div align="center">
 
