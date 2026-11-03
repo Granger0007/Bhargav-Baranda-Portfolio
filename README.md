@@ -21,10 +21,11 @@
 
 ## Start here
 
-If you have sixty seconds, read these two:
+If you have sixty seconds, read these three:
 
 - **[Wazuh SOC Lab](./projects/wazuh-soc-lab/)** — I built a SIEM on a bare cloud server, wrote my own detection rules, and set up an automatic response that blocked real attackers from the internet. Including what I got wrong on the way.
 - **[Case 001 — Spearphishing, A Story in Seven Layers](./incidents/case-001/)** — one attack traced from the email to the C2 channel, mapped to ATT&CK at sub-technique level, with the same detection logic written three ways.
+- **[OZONE Shield](https://github.com/Granger0007/ozone-shield)** — a free AI scam checker I built and run in production. Paste a suspicious message, get a verdict with reasons. Security thinking applied to a live product, not just a lab.
 
 ---
 
@@ -70,7 +71,7 @@ MacBook Pro — Apple Silicon M-series (ARM64, 8 GB)
         └── Offensive       →  Burp Suite · apktool · jadx · ADB
 
 Vultr cloud servers — 2 vCPU / 8 GB / London, one per project
-├── Wazuh 4.x           →  Wazuh challenge, Sept 2026: server + Ubuntu agent  (deleted after submission)
+├── Wazuh 4.14          →  Wazuh challenge, Sept 2026: server + Ubuntu agent  (deleted after submission)
 └── Elastic Stack       →  Elastic challenge: Elasticsearch · Kibana · Sysmon  (signed up, not yet started)
 ```
 
@@ -101,7 +102,7 @@ Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](
 
 Mapped against **ATT&CK v20.0 (released 13 October 2026)**.
 
-> **Note on v20:** this release restructured the Enterprise matrix from 14 tactics to 15. The old *Defense Evasion* tactic was split into **Stealth (TA0005)** — hiding activity by appearing to be normal behaviour — and a new **Defense Impairment (TA0112)** — breaking the defender's tooling, pipelines and visibility. Most published material still shows the old 14-tactic matrix.
+> **Note on the matrix:** ATT&CK v19 (April 2026) restructured the Enterprise matrix from 14 tactics to 15, and v20 keeps that structure. The old *Defense Evasion* tactic was split into **Stealth (TA0005)** — hiding activity by appearing to be normal behaviour — and a new **Defense Impairment (TA0112)** — breaking the defender's tooling, pipelines and visibility. Most published material still shows the old 14-tactic matrix.
 
 | Tactic | Techniques |
 |---|---|
@@ -155,7 +156,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 
 | Area | Skills |
 |------|--------|
-| **SIEM** | Wazuh (cloud deployment, custom rules) · Elastic / ELK · Splunk SPL — search, stats, eval, rex, timechart |
+| **SIEM** | Wazuh (cloud deployment, custom rules) · Elastic / ELK (KQL queries; full stack build is next) · Splunk SPL — search, stats, eval, rex, timechart |
 | **Detection Engineering** | Sigma · Splunk SPL · KQL · Wazuh custom rules · MITRE ATT&CK mapping · False-positive tuning |
 | **Incident Response** | NIST SP 800-61r3 · Timeline reconstruction · Root cause analysis · UK GDPR Article 33 / 72-hour reporting |
 | **Governance & Compliance** | ISO/IEC 27001:2022 · NIST CSF 2.0 · Cyber Essentials v3.3 · NCSC CAF v4.0 · UK GDPR · PCI DSS |
@@ -206,6 +207,7 @@ Q3 2026
 
 Q4 2026
  ├── 🔄  Control mapping — my lab against ISO 27001, NIST CSF 2.0, Cyber Essentials
+ ├── 🎯  Lab 011 — Phishing email triage on real honeypot samples
  ├── 🎯  OZONE Shield DPIA — data-flow map and impact assessment
  └── 🎯  Open-source Sigma contributions
 
