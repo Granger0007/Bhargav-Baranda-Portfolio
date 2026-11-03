@@ -17,7 +17,6 @@
 
 </div>
 
----
 
 ## Start here
 
@@ -27,7 +26,7 @@ If you have sixty seconds, read these three:
 - **[Case 001 — Spearphishing, A Story in Seven Layers](./incidents/case-001/)** — one attack traced from the email to the C2 channel, mapped to ATT&CK at sub-technique level, with the same detection logic written three ways.
 - **[OZONE Shield](https://github.com/Granger0007/ozone-shield)** — a free AI scam checker I built and run in production. Paste a suspicious message, get a verdict with reasons. Security thinking applied to a live product, not just a lab.
 
----
+
 
 ## What's in This Portfolio
 
@@ -52,7 +51,7 @@ What each write-up covers:
 
 > **On scope and authorisation.** Every scan, capture and test in this repository was carried out against systems I own and built myself. Nothing here was run against a third party. Under the Computer Misuse Act 1990 that distinction is the whole thing, and I treat it as a hard line rather than a footnote.
 
----
+
 
 ## Home Lab
 
@@ -77,7 +76,7 @@ Vultr cloud servers — 2 vCPU / 8 GB / London, one per project
 
 Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](./lab-setup/wazuh-setup/) · [Splunk on ARM64](./lab-setup/splunk-arm64/) · [Suricata](./lab-setup/suricata-ids/)
 
----
+
 
 ## Lab Index
 
@@ -96,7 +95,7 @@ Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](
 
 **Key:** 🔴 Investigation &nbsp;·&nbsp; 🟡 Analysis &nbsp;·&nbsp; 🔵 Lab &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
 
----
+
 
 ## MITRE ATT&CK Coverage
 
@@ -120,7 +119,7 @@ Mapped against **ATT&CK v20.0 (released 13 October 2026)**.
 
 Coverage grows with every lab. Each case README maps its techniques to what was actually observed.
 
----
+
 
 ## Governance, Risk and Compliance
 
@@ -139,7 +138,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 
 **🎯 Next — OZONE Shield DPIA:** a data-flow map and data protection impact assessment for my own live product. Written as a genuine DPIA for a real thing I run, not a template exercise.
 
----
+
 
 ## Projects
 
@@ -148,7 +147,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 | 🔎 | [Wazuh SOC Lab — MYDFIR Wazuh Challenge](./projects/wazuh-soc-lab/) | Wazuh SIEM on a cloud server with Windows and Linux agents, file integrity monitoring, two custom detections and an automatic SSH block that caught real attackers | Wazuh 4.14 · Vultr · UTM · Windows 11 ARM64 · Ubuntu 24.04 | ✅ Completed |
 | 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Free AI scam checker I built and run — paste a suspicious message, get a verdict with a confidence score, reasons and next steps | Claude API · Cloudflare Workers · Cloudflare AI Gateway | 🟢 Live |
 
----
+
 
 ## Technical Skills
 
@@ -167,7 +166,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 | **Infrastructure** | Kali Linux ARM64 · UTM · Docker · Vultr cloud servers |
 | **Languages** | Python · Bash · SPL · KQL · Sigma (YAML) |
 
----
+
 
 ## Credentials
 
@@ -177,7 +176,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 | CompTIA Security+ SY0-701 | CompTIA | ✅ Certified Aug 2026 |
 | Certified in Cybersecurity (CC) | ISC² | ✅ Active |
 
----
+
 
 ## Granger Security — YouTube
 
@@ -187,7 +186,7 @@ Security operations tells you what happened. Governance decides whether it shoul
 
 Companion videos for the investigations here are in production — each case README will link its video once it's live.
 
----
+
 
 ## Roadmap
 
@@ -218,7 +217,7 @@ Q4 2026
  └── 🎯  Cloud security — AZ-500 / AWS Security Specialty
 ```
 
----
+
 
 ## Contact
 
@@ -233,7 +232,7 @@ I have full right to work in the UK with no sponsorship needed to start.
 | GitHub | [github.com/Granger0007](https://github.com/Granger0007) |
 | Email | bbaranda055@gmail.com |
 
----
+
 
 <div align="center">
 
