@@ -10,7 +10,7 @@
 [![YouTube](https://img.shields.io/badge/YouTube-Granger_Security-FF0000?style=flat-square&logo=youtube)](https://youtube.com/@Granger-Security)
 [![GitHub](https://img.shields.io/badge/GitHub-Granger0007-181717?style=flat-square&logo=github)](https://github.com/Granger0007)
 
-![Labs](https://img.shields.io/badge/Labs_Complete-11-EE3124?style=flat-square)
+![Labs](https://img.shields.io/badge/Labs_Complete-12-EE3124?style=flat-square)
 ![MITRE](https://img.shields.io/badge/MITRE_ATT%26CK-v20.0_·_Sub--technique_Level-orange?style=flat-square)
 ![Detection Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=flat-square)
 ![Frameworks](https://img.shields.io/badge/Frameworks-ISO_27001_%7C_NIST_CSF_2.0_%7C_CE_v3.3-6f42c1?style=flat-square)
@@ -32,10 +32,10 @@ If you have sixty seconds, read these three:
 
 I'm working toward my first information security role — the all-round kind that covers **both halves** of the job: monitoring and incidents, *and* risk, controls and compliance. Most portfolios show one. This one shows both, because that's the work I want and it's what my background actually fits.
 
-- **Operations** — the eleven labs and the SIEM build below. Hands-on, from my own ARM64 home lab and cloud servers.
+- **Operations** — the twelve labs and the SIEM build below. Hands-on, from my own ARM64 home lab and cloud servers.
 - **Governance** — frameworks studied to working depth, and my own lab mapped against them. See [Governance, Risk and Compliance](#governance-risk-and-compliance).
 
-The eleven labs are a mix of three kinds of work:
+The twelve labs are a mix of three kinds of work:
 
 - **🔵 Labs** — real captures, scans and logs from my own machines (Wireshark, tshark, Nmap, dig, syslog and Windows event logs), plus real phishing emails from a public honeypot collection.
 - **🔴 Investigations** — an attack traced end to end, from first signal to containment.
@@ -44,7 +44,7 @@ The eleven labs are a mix of three kinds of work:
 What each write-up covers:
 
 - **MITRE ATT&CK** mapping at sub-technique level — tactic → technique → sub-technique → what was actually observed
-- **Detection rules** — in seven of the eleven, the same logic written three ways: Sigma (SIEM-agnostic), Splunk SPL and KQL
+- **Detection rules** — in seven of the twelve, the same logic written three ways: Sigma (SIEM-agnostic), Splunk SPL and KQL
 - **Remediation** — containment, eradication and longer-term prevention, where the lab calls for it
 - **Business impact** — systems affected and regulatory exposure (UK GDPR, Information Commission reporting) for the investigations
 - **What went wrong** — the dead ends, the broken builds and the rules that fired on my own activity. Every portfolio shows things working. This one shows the diagnosis too, because that's the part of the job nobody can teach you from a course.
@@ -93,6 +93,7 @@ Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](
 | 009 | 🔵 Lab | [Wireshark Deep Dive — Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | T1040 · T1557 · T1071 · tshark · TCP flag analysis · HTTP NSE extraction · SSH banner forensics | ✅ |
 | 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | ✅ |
 | 011 | 🔵 Lab | [Phishing Email Triage — Four Domains, No Microsoft](./lab-setup/email-analysis/lab-011/) | T1598 · T1684.001 · T1589.002 · SPF/DKIM/DMARC · Header forensics · WHOIS & reputation · KQL + SPL | ✅ |
+| 012 | 🔴 Investigation | [A Recruitment Scam That Targeted Me](./lab-setup/email-analysis/lab-012/) | T1598 · T1684.001 · T1583.001 · T1585.002 · T1593.001 · SPF vs DMARC alignment · Domain age (WHOIS) · AI-text fingerprint · KQL + SPL | ✅ |
 
 **Key:** 🔴 Investigation &nbsp;·&nbsp; 🟡 Analysis &nbsp;·&nbsp; 🔵 Lab &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
 
@@ -106,8 +107,8 @@ Mapped against **ATT&CK v20.0 (released 13 October 2026)**.
 
 | Tactic | Techniques |
 |---|---|
-| Reconnaissance (TA0043) | T1590.002 · T1595.001 · T1598 · T1589.002 |
-| Resource Development (TA0042) | T1584.004 |
+| Reconnaissance (TA0043) | T1590.002 · T1595.001 · T1598 · T1589.002 · T1593.001 |
+| Resource Development (TA0042) | T1584.004 · T1583.001 · T1585.002 |
 | Initial Access (TA0001) | T1566.001 · T1190 · T1133 · T1078 |
 | Execution (TA0002) | T1204.002 · T1059.005 |
 | Stealth (TA0005) | T1027 · T1036 · T1684.001 |
@@ -209,6 +210,7 @@ Q3 2026
 Q4 2026
  ├── 🔄  Control mapping — my lab against ISO 27001, NIST CSF 2.0, Cyber Essentials
  ├── ✅  Lab 011 — Phishing email triage on real honeypot samples
+ ├── ✅  Lab 012 — Live recruitment scam that targeted me, triaged and reported to the NCSC
  ├── 🎯  OZONE Shield DPIA — data-flow map and impact assessment
  └── 🎯  Open-source Sigma contributions
 
