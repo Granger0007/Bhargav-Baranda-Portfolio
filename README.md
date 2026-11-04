@@ -234,7 +234,7 @@ I have full right to work in the UK with no sponsorship needed to start.
 | LinkedIn | [linkedin.com/in/bhargav-baranda](https://www.linkedin.com/in/bhargav-baranda) |
 | YouTube | [youtube.com/@Granger-Security](https://youtube.com/@Granger-Security) |
 | GitHub | [github.com/Granger0007](https://github.com/Granger0007) |
-| Email | bbaranda055@gmail.com |
+
 
 
 
