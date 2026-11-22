@@ -1,249 +1,189 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:EE3124&height=180&section=header&text=Information%20Security%20Portfolio&fontSize=40&fontColor=ffffff&fontAlignY=38&desc=Bhargav%20Baranda%20%C2%B7%20Operations%20%2B%20Governance%20%C2%B7%20Security%2B%20%C2%B7%20ISC%C2%B2%20CC%20%C2%B7%20MSc%20Information%20Security&descSize=15&descAlignY=58&descColor=EE3124" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1a1f2e,100:EE3124&height=180&section=header&text=Information%20Security%20Portfolio&fontSize=40&fontColor=ffffff&fontAlignY=38&desc=Bhargav%20Baranda%20%C2%B7%20MSc%20Information%20Security%20%C2%B7%20CompTIA%20Security%2B&descSize=15&descAlignY=58&descColor=EE3124" />
 
-[![ISC²](https://img.shields.io/badge/ISC²-Certified_in_Cybersecurity-00599C?style=for-the-badge&logoColor=white)](https://www.isc2.org/certifications/cc)
-[![Security+](https://img.shields.io/badge/CompTIA-Security+_Certified-EE3124?style=for-the-badge)](https://www.comptia.org/certifications/security)
+[![Security+](https://img.shields.io/badge/CompTIA-Security+-EE3124?style=for-the-badge)](https://www.comptia.org/certifications/security)
 [![Royal Holloway](https://img.shields.io/badge/Royal_Holloway-MSc_Information_Security-003087?style=for-the-badge)](https://www.royalholloway.ac.uk)
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-bhargav--baranda-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/bhargav-baranda)
 [![YouTube](https://img.shields.io/badge/YouTube-Granger_Security-FF0000?style=flat-square&logo=youtube)](https://youtube.com/@Granger-Security)
 [![GitHub](https://img.shields.io/badge/GitHub-Granger0007-181717?style=flat-square&logo=github)](https://github.com/Granger0007)
 
-![Labs](https://img.shields.io/badge/Labs_Complete-13-EE3124?style=flat-square)
-![MITRE](https://img.shields.io/badge/MITRE_ATT%26CK-v20.0_·_Sub--technique_Level-orange?style=flat-square)
-![Detection Rules](https://img.shields.io/badge/Detection_Rules-Sigma_%7C_SPL_%7C_KQL-blue?style=flat-square)
-![Frameworks](https://img.shields.io/badge/Frameworks-ISO_27001_%7C_NIST_CSF_2.0_%7C_CE_v3.3-6f42c1?style=flat-square)
-
 </div>
 
+## Hello, I'm Bhargav
 
-## Start here
+Welcome to my security portfolio. This is where I keep the labs, investigations and projects I've worked on while building towards my first role in information security.
 
-If you have sixty seconds, read these three:
+I started out in fraud prevention, spending two years at TTEC spotting account takeovers and payment fraud in a busy alert queue. After that I worked as a web developer. I then completed an MSc in Information Security at Royal Holloway, University of London, and passed CompTIA Security+. Everything here comes from my own home lab and cloud servers, and I've written each piece up so that someone else could follow it and reach the same answer.
 
-- **[Wazuh SOC Lab](./projects/wazuh-soc-lab/)** — I built a SIEM on a bare cloud server, wrote my own detection rules, and set up an automatic response that blocked real attackers from the internet. Including what I got wrong on the way.
-- **[Case 001 — Spearphishing, A Story in Seven Layers](./incidents/case-001/)** — one attack traced from the email to the C2 channel, mapped to ATT&CK at sub-technique level, with the same detection logic written three ways.
-- **[OZONE Shield](https://github.com/Granger0007/ozone-shield)** — a free AI scam checker I built and run in production. Paste a suspicious message, get a verdict with reasons. Security thinking applied to a live product, not just a lab.
+You'll find the mistakes in here too. When a rule fired on my own activity or a build broke, I wrote down why and what I changed, because that's usually where I learned the most.
 
+## If you only have a minute
 
+Three pieces give the best picture of how I work:
 
-## What's in This Portfolio
+1. **[Wazuh SOC Lab](./projects/wazuh-soc-lab/)**: I built a SIEM on a bare cloud server, wrote my own detection rules and set up an automatic response that ended up blocking real brute-force attempts from the internet.
+2. **[Case 001, Spearphishing in Seven Layers](./incidents/case-001/)**: one attack followed from the first email through to the command and control channel, mapped to MITRE ATT&CK, with the same detection written for three different tools.
+3. **[OZONE Shield](https://github.com/Granger0007/ozone-shield)**: a free scam checker I built and still run. You paste in a suspicious message and it explains whether it looks like a scam and why.
 
-I'm working toward my first information security role — the all-round kind that covers **both halves** of the job: monitoring and incidents, *and* risk, controls and compliance. Most portfolios show one. This one shows both, because that's the work I want and it's what my background actually fits.
+## How I work on each lab
 
-- **Operations** — the thirteen labs and the SIEM build below. Hands-on, from my own ARM64 home lab and cloud servers.
-- **Governance** — frameworks studied to working depth, and my own lab mapped against them. See [Governance, Risk and Compliance](#governance-risk-and-compliance).
+Every lab follows roughly the same loop. I set something up, watch what it leaves behind in the logs, and then write the detection that would catch it next time.
 
-The thirteen labs are a mix of three kinds of work:
-
-- **🔵 Labs** — real captures, scans and logs from my own machines (Wireshark, tshark, Nmap, dig, syslog and Windows event logs), plus real phishing emails from a public honeypot collection.
-- **🔴 Investigations** — an attack traced end to end, from first signal to containment.
-- **🟡 Analysis** — a security topic examined properly and written up, without an incident attached.
-
-What each write-up covers:
-
-- **MITRE ATT&CK** mapping at sub-technique level — tactic → technique → sub-technique → what was actually observed
-- **Detection rules** — in seven of the thirteen, the same logic written three ways: Sigma (SIEM-agnostic), Splunk SPL and KQL
-- **Remediation** — containment, eradication and longer-term prevention, where the lab calls for it
-- **Business impact** — systems affected and regulatory exposure (UK GDPR, Information Commission reporting) for the investigations
-- **What went wrong** — the dead ends, the broken builds and the rules that fired on my own activity. Every portfolio shows things working. This one shows the diagnosis too, because that's the part of the job nobody can teach you from a course.
-
-> **On scope and authorisation.** Every scan, capture and test in this repository was carried out against systems I own and built myself. Nothing here was run against a third party. Under the Computer Misuse Act 1990 that distinction is the whole thing, and I treat it as a hard line rather than a footnote.
-
-
-
-## Home Lab
-
-> Enterprise security tools assume x86_64. My machine is an Apple Silicon Mac (ARM64) with 8 GB of RAM.
-> So light work runs locally, and anything SIEM-sized goes on a cloud server. Every workaround is documented, so anyone on Apple Silicon can reproduce it.
-
-```
-MacBook Pro — Apple Silicon M-series (ARM64, 8 GB)
-└── UTM
-    └── Kali Linux ARM64
-        ├── Network         →  Wireshark 4.6.x · tshark · tcpdump · Nmap 7.99
-        ├── IDS             →  Suricata 7.x
-        ├── SIEM (local)    →  Splunk in Docker (x86 emulation)
-        ├── Forensics       →  Volatility 3 · NetworkMiner
-        ├── Detection Eng   →  Sigma · SPL · KQL
-        ├── Vuln Mgmt       →  Trivy 0.76.1 · CISA KEV · FIRST EPSS
-        └── Offensive       →  Burp Suite · apktool · jadx · ADB
-
-Vultr cloud servers — 2 vCPU / 8 GB / London, one per project
-├── Wazuh 4.14          →  Wazuh challenge, Sept 2026: server + Ubuntu agent  (deleted after submission)
-└── Elastic Stack       →  Elastic challenge: Elasticsearch · Kibana · Sysmon  (signed up, not yet started)
+```mermaid
+flowchart LR
+    A["Pick a scenario"] --> B["Run it in my lab"]
+    B --> C["Watch the logs and traffic"]
+    C --> D["Investigate what happened"]
+    D --> E["Write a detection rule"]
+    E --> F["Map it to ATT&CK and the frameworks"]
+    F --> G["Write it up, mistakes included"]
+    G -.-> A
 ```
 
-Setup guides: [Kali on UTM](./lab-setup/kali-utm/) · [Wazuh on a cloud server](./lab-setup/wazuh-setup/) · [Splunk on ARM64](./lab-setup/splunk-arm64/) · [Suricata](./lab-setup/suricata-ids/)
+Each write-up covers the ATT&CK techniques I actually observed, and the containment and longer term fixes where the lab calls for them. For the investigations it also covers business impact, including UK GDPR reporting. In seven of the thirteen labs I wrote the same detection three ways, in Sigma, Splunk SPL and KQL, so it can be used whichever tool a team runs.
 
+> **A note on scope.** Every scan, capture and test here was run against systems I own and built myself. Nothing was pointed at anyone else's systems. Under the Computer Misuse Act 1990 that line matters, and I keep to it.
 
+## My home lab
 
-## Lab Index
+My laptop is an Apple Silicon Mac with 8 GB of memory, and most security tools are built for Intel machines. So lighter work runs locally in a Kali Linux virtual machine, and anything heavy, like a SIEM, goes on a rented cloud server. I've documented each workaround so anyone else on an Apple Silicon Mac can do the same.
 
-| # | Type | Title | Key Skills | Status |
-|:-:|:----:|-------|-----------|:------:|
-| 001 | 🔴 Investigation | [Spearphishing Attack — A Story in Seven Layers](./incidents/case-001/) | T1566.001 · T1204.002 · T1059.005 · T1027 · T1071.001 · T1573.001 · Sigma + SPL + KQL | ✅ |
-| 002 | 🔴 Investigation | [TCP Traffic Analysis — SSL Stripping & C2 Beacon Detection](./incidents/case-002/) | T1040 · T1071.001 · T1557 · Wireshark packet analysis · Sigma + SPL + KQL | ✅ |
-| 003 | 🔴 Investigation | [Network Segmentation — Lateral Movement Detection](./incidents/case-003/) | T1021.002 · T1018 · T1210 · Subnet boundary analysis · Sigma + SPL + KQL | ✅ |
-| 004 | 🔵 Lab | [DNS Enumeration — Interrogating the Internet](./lab-setup/dns-enumeration/) | T1590.002 · T1498.002 · dig · nslookup · DNS record analysis · Threat intelligence | ✅ |
-| 005 | 🔴 Investigation | [HTTP vs HTTPS — I Watched a Password Travel Across the Internet](./incidents/case-005/) | T1040 · T1557.002 · T1595.001 · Wireshark · Credential interception · TLS analysis | ✅ |
-| 006 | 🟡 Analysis | [Twenty Doors — Port Security Analysis](./incidents/case-006/) | T1046 · T1021.001 · T1021.002 · T1048.003 · T1190 · T1133 · 20 ports risk-tiered | ✅ |
-| 007 | 🟡 Analysis | [Firewall Architecture — The Invisible Walls Inside Every Network](./incidents/case-007/) | T1190 · T1021.002 · T1041 · T1571 · T1599 · Three-zone architecture · Default deny | ✅ |
-| 008 | 🔵 Lab | [Nmap Port Scanning — What Attackers See in 30 Seconds](./lab-setup/nmap-labs/lab-008/) | T1046 · Nmap 7.99 · Wireshark · Service version detection · OS fingerprinting · VMware CVE probe | ✅ |
-| 009 | 🔵 Lab | [Wireshark Deep Dive — Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | T1040 · T1557 · T1071 · tshark · TCP flag analysis · HTTP NSE extraction · SSH banner forensics | ✅ |
-| 010 | 🔵 Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | T1078 · T1110 · syslog · auth.log · Windows Event Logs · Event IDs 4624/4625/4688 | ✅ |
-| 011 | 🔵 Lab | [Phishing Email Triage — Four Domains, No Microsoft](./lab-setup/email-analysis/lab-011/) | T1598 · T1684.001 · T1589.002 · SPF/DKIM/DMARC · Header forensics · WHOIS & reputation · KQL + SPL | ✅ |
-| 012 | 🔴 Investigation | [A Recruitment Scam That Targeted Me](./lab-setup/email-analysis/lab-012/) | T1598 · T1684.001 · T1583.001 · T1585.002 · T1593.001 · SPF vs DMARC alignment · Domain age (WHOIS) · AI-text fingerprint · KQL + SPL | ✅ |
-| 013 | 🔵 Lab | [Vulnerability Management — 121 Findings, 14 That Matter](./lab-setup/vuln-management/lab-013/) | Trivy · Container image + SCA · CVSS vs EPSS vs CISA KEV · Risk-based prioritisation · Model regression test · Remediation tickets · ISO 27001 A.8.8 | ✅ |
+```mermaid
+flowchart TB
+    subgraph MAC["My MacBook, Apple Silicon"]
+        UTM["UTM virtualisation"] --> KALI["Kali Linux ARM64"]
+        KALI --> T1["Wireshark, tshark, Nmap"]
+        KALI --> T2["Suricata IDS"]
+        KALI --> T3["Splunk in Docker"]
+        KALI --> T4["Trivy, CISA KEV, EPSS"]
+    end
+    subgraph CLOUD["Vultr cloud server, London"]
+        WAZUH["Wazuh SIEM server"]
+    end
+    LINUX["Ubuntu agent"] --> WAZUH
+    WIN["Windows 11 agent"] --> WAZUH
+    NET(["Internet attackers"]) -.->|SSH brute force| LINUX
+    WAZUH -.->|automatic block| LINUX
+```
 
-**Key:** 🔴 Investigation &nbsp;·&nbsp; 🟡 Analysis &nbsp;·&nbsp; 🔵 Lab &nbsp;·&nbsp; ✅ Complete &nbsp;·&nbsp; 🔄 In Progress
+Setup guides: [Kali on UTM](./lab-setup/kali-utm/), [Wazuh on a cloud server](./lab-setup/wazuh-setup/), [Splunk on ARM64](./lab-setup/splunk-arm64/) and [Suricata](./lab-setup/suricata-ids/).
 
+## The labs
 
+There are three kinds of work here. **Labs** use real captures, scans and logs from my own machines, plus real phishing emails from a public honeypot collection. **Investigations** follow an attack from the first signal to containment. **Analysis** pieces look closely at one security topic without an incident attached.
 
-## MITRE ATT&CK Coverage
+| # | Type | Title | What it covers |
+|:-:|------|-------|----------------|
+| 001 | Investigation | [Spearphishing, A Story in Seven Layers](./incidents/case-001/) | Phishing to C2, T1566.001, T1204.002, T1059.005, Sigma, SPL and KQL |
+| 002 | Investigation | [TCP Traffic Analysis, SSL Stripping and C2 Beacons](./incidents/case-002/) | T1040, T1071.001, T1557, Wireshark |
+| 003 | Investigation | [Network Segmentation and Lateral Movement](./incidents/case-003/) | T1021.002, T1018, T1210, subnet boundaries |
+| 004 | Lab | [DNS Enumeration](./lab-setup/dns-enumeration/) | dig, nslookup, DNS records, threat intelligence |
+| 005 | Investigation | [HTTP vs HTTPS: Watching a Password Cross the Internet](./incidents/case-005/) | T1040, T1557.002, credential interception, TLS |
+| 006 | Analysis | [Twenty Doors, Port Security](./incidents/case-006/) | Twenty common ports ranked by risk |
+| 007 | Analysis | [Firewall Architecture](./incidents/case-007/) | Three-zone design, default deny |
+| 008 | Lab | [Nmap Port Scanning](./lab-setup/nmap-labs/lab-008/) | Service detection, OS fingerprinting |
+| 009 | Lab | [Wireshark Forensic PCAP Analysis](./lab-setup/wireshark-labs/lab-009/) | tshark, TCP flags, SSH banners |
+| 010 | Lab | [Log Analysis Fundamentals](./lab-setup/log-analysis/lab-010/) | auth.log, Windows Event IDs 4624, 4625 and 4688 |
+| 011 | Lab | [Phishing Email Triage: Four Domains, No Microsoft](./lab-setup/email-analysis/lab-011/) | SPF, DKIM, DMARC, header forensics, WHOIS |
+| 012 | Investigation | [A Recruitment Scam That Targeted Me](./lab-setup/email-analysis/lab-012/) | DMARC alignment, domain age, reported to the NCSC |
+| 013 | Lab | [Vulnerability Management: 121 Findings, 14 That Matter](./lab-setup/vuln-management/lab-013/) | Trivy, CVSS, EPSS, CISA KEV, ISO 27001 A.8.8 |
 
-Mapped against **ATT&CK v20.0 (released 13 October 2026)**.
+All thirteen are complete.
 
-> **Note on the matrix:** ATT&CK v19 (April 2026) restructured the Enterprise matrix from 14 tactics to 15, and v20 keeps that structure. The old *Defense Evasion* tactic was split into **Stealth (TA0005)** — hiding activity by appearing to be normal behaviour — and a new **Defense Impairment (TA0112)** — breaking the defender's tooling, pipelines and visibility. Most published material still shows the old 14-tactic matrix.
+## MITRE ATT&CK coverage
+
+These are the techniques I've observed and mapped across the labs so far, using ATT&CK v20.0. Version 19 split the old Defense Evasion tactic into Stealth and Defense Impairment, so you'll see both below.
 
 | Tactic | Techniques |
 |---|---|
-| Reconnaissance (TA0043) | T1590.002 · T1595.001 · T1598 · T1589.002 · T1593.001 |
-| Resource Development (TA0042) | T1584.004 · T1583.001 · T1585.002 |
-| Initial Access (TA0001) | T1566.001 · T1190 · T1133 · T1078 |
-| Execution (TA0002) | T1204.002 · T1059.005 |
-| Stealth (TA0005) | T1027 · T1036 · T1684.001 |
+| Reconnaissance (TA0043) | T1590.002, T1595.001, T1598, T1589.002, T1593.001 |
+| Resource Development (TA0042) | T1584.004, T1583.001, T1585.002 |
+| Initial Access (TA0001) | T1566.001, T1190, T1133, T1078 |
+| Execution (TA0002) | T1204.002, T1059.005 |
+| Stealth (TA0005) | T1027, T1036, T1684.001 |
 | Defense Impairment (TA0112) | T1599 |
-| Credential Access (TA0006) | T1110 · T1040 · T1557.002 |
-| Discovery (TA0007) | T1046 · T1018 · T1040 |
-| Lateral Movement (TA0008) | T1021.001 · T1021.002 · T1210 |
-| Command and Control (TA0011) | T1071.001 · T1071.004 · T1573.001 · T1571 |
-| Exfiltration (TA0010) | T1041 · T1048.003 |
+| Credential Access (TA0006) | T1110, T1040, T1557.002 |
+| Discovery (TA0007) | T1046, T1018, T1040 |
+| Lateral Movement (TA0008) | T1021.001, T1021.002, T1210 |
+| Command and Control (TA0011) | T1071.001, T1071.004, T1573.001, T1571 |
+| Exfiltration (TA0010) | T1041, T1048.003 |
 | Impact (TA0040) | T1498.002 |
 
-Coverage grows with every lab. Each case README maps its techniques to what was actually observed.
+## Governance, risk and compliance
 
+Detection tells you what happened. Governance asks whether it should have been possible in the first place, and how you'd prove the controls work. I want to be useful on both sides, so I've studied the frameworks properly.
 
+| Framework | What I've covered | Where it shows up |
+|---|---|---|
+| ISO/IEC 27001:2022 | Clauses 4 to 10 and all 93 Annex A controls | Control mapping |
+| NIST CSF 2.0 | All six functions, including Govern | Control mapping |
+| Cyber Essentials v3.3 | The five technical controls | Control mapping |
+| NCSC CAF v4.0 | Four objectives and fourteen principles | Public sector context |
+| UK GDPR and DPA 2018 | Breach reporting, DPIAs and the 72 hour clock | Every investigation |
+| NIST SP 800-61 Rev. 3 | The incident response lifecycle | Incident write-ups |
 
-## Governance, Risk and Compliance
+**Working on now:** mapping each part of my Wazuh and Entra ID lab to the ISO 27001, NIST CSF 2.0 and Cyber Essentials controls it supports, with the evidence an auditor would ask for and an honest list of the gaps.
 
-Security operations tells you what happened. Governance decides whether it should have been possible, and proves the controls work. An information security analyst needs both, so I've studied the governance side to working depth rather than exam depth.
-
-| Framework | Depth | Where it shows up |
-|---|---|:---:|
-| **ISO/IEC 27001:2022** | Clauses 4–10 and all 93 Annex A controls, by theme | Control mapping (below) |
-| **NIST CSF 2.0** | All six functions including Govern, down to category level | Control mapping (below) |
-| **Cyber Essentials v3.3** | All five technical controls and the v3.3 automatic-fail conditions | Control mapping (below) |
-| **NCSC CAF v4.0** | Four objectives, fourteen principles | Public sector and essential services |
-| **UK GDPR / DPA 2018** | Article 33 breach reporting, Article 35 DPIAs, the 72-hour clock | Business impact in every investigation |
-| **NIST SP 800-61 Rev. 3** | The incident lifecycle, as recast against CSF 2.0 | Incident write-ups |
-
-**🔄 In progress — Control Mapping:** every component of my Wazuh and Entra ID lab mapped to the ISO 27001 Annex A control, NIST CSF 2.0 function and Cyber Essentials control it satisfies, with the evidence that would prove it to an auditor and an honest list of the gaps it doesn't cover.
-
-**🎯 Next — OZONE Shield DPIA:** a data-flow map and data protection impact assessment for my own live product. Written as a genuine DPIA for a real thing I run, not a template exercise.
-
-
+**Next:** a data protection impact assessment for OZONE Shield, since it handles messages people paste in and some of those contain personal data.
 
 ## Projects
 
-| | Project | Description | Stack | Status |
-|:-:|---------|-------------|-------|:------:|
-| 🔎 | [Wazuh SOC Lab — MYDFIR Wazuh Challenge](./projects/wazuh-soc-lab/) | Wazuh SIEM on a cloud server with Windows and Linux agents, file integrity monitoring, two custom detections and an automatic SSH block that caught real attackers | Wazuh 4.14 · Vultr · UTM · Windows 11 ARM64 · Ubuntu 24.04 | ✅ Completed |
-| 🛡️ | [OZONE Shield](https://github.com/Granger0007/ozone-shield) | Free AI scam checker I built and run — paste a suspicious message, get a verdict with a confidence score, reasons and next steps | Claude API · Cloudflare Workers · Cloudflare AI Gateway | 🟢 Live |
+| Project | What it is | Built with | Status |
+|---|---|---|---|
+| [Wazuh SOC Lab](./projects/wazuh-soc-lab/) | A SIEM on a cloud server with Windows and Linux agents, file integrity monitoring, two custom detections and an automatic SSH block that stopped real attackers | Wazuh 4.14, Vultr, Ubuntu 24.04, Windows 11 ARM64 | Complete |
+| [OZONE Shield](https://github.com/Granger0007/ozone-shield) | A free scam checker. Paste in a suspicious message and get a verdict, the reasons and what to do next | Claude API, Cloudflare Workers | Live |
 
+## Skills
 
+Everything below comes from my labs, projects and studies. I haven't held a security job yet, and that's exactly what I'm looking for.
 
-## Technical Skills
-
-> Everything below is **lab, project and study experience.** I haven't held a security job yet — that's the thing I'm looking for. I'd rather tell you that here than have you find out in the interview.
-
-| Area | Skills |
-|------|--------|
-| **SIEM** | Wazuh (cloud deployment, custom rules) · Elastic / ELK (KQL queries; full stack build is next) · Splunk SPL — search, stats, eval, rex, timechart |
-| **Detection Engineering** | Sigma · Splunk SPL · KQL · Wazuh custom rules · MITRE ATT&CK mapping · False-positive tuning |
-| **Incident Response** | NIST SP 800-61r3 · Timeline reconstruction · Root cause analysis · UK GDPR Article 33 / 72-hour reporting |
-| **Governance & Compliance** | ISO/IEC 27001:2022 · NIST CSF 2.0 · Cyber Essentials v3.3 · NCSC CAF v4.0 · UK GDPR · PCI DSS |
-| **Threat Intelligence** | MITRE ATT&CK at sub-technique level · IOC extraction · CISA KEV · NCSC advisories · VirusTotal · OTX |
-| **Network Analysis** | Wireshark · tshark · tcpdump · Suricata IDS · DNS enumeration · Packet analysis · TLS inspection |
-| **Identity** | Microsoft Entra ID — MFA, Conditional Access, role-based access control |
-| **Offensive Tools** | Nmap · Burp Suite · apktool · jadx · ADB · OWASP Top 10 / Mobile Top 10 |
-| **Infrastructure** | Kali Linux ARM64 · UTM · Docker · Vultr cloud servers |
-| **Languages** | Python · Bash · SPL · KQL · Sigma (YAML) |
-
-
-
-## Credentials
-
-| Credential | Institution | Status |
-|---|---|:---:|
-| MSc Information Security | Royal Holloway, University of London — NCSC-recognised ACE-CSR | ✅ Completed 2025 |
-| CompTIA Security+ SY0-701 | CompTIA | ✅ Certified Aug 2026 |
-| Certified in Cybersecurity (CC) | ISC² | ✅ Active |
-
-
-
-## Granger Security — YouTube
-
-230+ videos and Shorts since 2022 — daily explainer series on AI security, security analysis and Python, plus longer CVE breakdowns and Security+ content. Built for people changing career into security, which is the thing I wish had existed when I started.
-
-[![YouTube](https://img.shields.io/badge/▶_Watch-Granger_Security-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@Granger-Security)
-
-Companion videos for the investigations here are in production — each case README will link its video once it's live.
-
-
-
-## Roadmap
-
-```
-2025
- ├── ✅  MSc Information Security — Royal Holloway, University of London
- └── ✅  ISC² Certified in Cybersecurity (CC)
-
-Q1–Q2 2026
- ├── ✅  Security Lab Programme — Labs 001–010
- └── ✅  OZONE Shield — live AI scam checker
-
-Q3 2026
- ├── ✅  CompTIA Security+ SY0-701 — passed first attempt
- ├── ✅  MYDFIR Wazuh SOC Analyst Challenge
- └── 🔄  UK information security applications        ← active
-
-Q4 2026
- ├── 🔄  Control mapping — my lab against ISO 27001, NIST CSF 2.0, Cyber Essentials
- ├── ✅  Lab 011 — Phishing email triage on real honeypot samples
- ├── ✅  Lab 012 — Live recruitment scam that targeted me, triaged and reported to the NCSC
- ├── ✅  Lab 013 — Vulnerability management: Trivy scans prioritised with CVSS, EPSS and CISA KEV
- ├── 🎯  OZONE Shield DPIA — data-flow map and impact assessment
- └── 🎯  Open-source Sigma contributions
-
-2027 — once earning
- ├── 🎯  Microsoft SC-200 (studying the free Learn paths now)
- ├── 🎯  Splunk Core Certified User
- ├── 🎯  ISO/IEC 27001 Lead Implementer or Lead Auditor
- └── 🎯  Cloud security — AZ-500 / AWS Security Specialty
-```
-
-
-
-## Contact
-
-**Looking for my first information security role in the UK** — Information Security Analyst, SOC Analyst (L1), or security GRC. Open to anywhere in the UK, and available immediately.
-
-I have full right to work in the UK with no sponsorship needed to start.
-
-| | |
+| Area | Tools and skills |
 |---|---|
-| LinkedIn | [linkedin.com/in/bhargav-baranda](https://www.linkedin.com/in/bhargav-baranda) |
-| YouTube | [youtube.com/@Granger-Security](https://youtube.com/@Granger-Security) |
-| GitHub | [github.com/Granger0007](https://github.com/Granger0007) |
+| SIEM | Wazuh with custom rules, Splunk SPL, Elastic and KQL |
+| Detection | Sigma, SPL and KQL rules, ATT&CK mapping, tuning out false positives |
+| Incident response | NIST SP 800-61, building timelines, root cause, UK GDPR reporting |
+| Governance | ISO 27001, NIST CSF 2.0, Cyber Essentials, NCSC CAF, UK GDPR, PCI DSS |
+| Network analysis | Wireshark, tshark, tcpdump, Suricata, DNS, TLS |
+| Identity | Microsoft Entra ID, MFA, Conditional Access, role-based access |
+| Infrastructure | Kali Linux on ARM64, UTM, Docker, Vultr |
+| Languages | Python, Bash, SQL, SPL, KQL |
 
+## Qualifications
 
+| Qualification | Where | Year |
+|---|---|---|
+| MSc Information Security | Royal Holloway, University of London, an NCSC-recognised Academic Centre of Excellence in Cyber Security Research | 2025 |
+| CompTIA Security+ (SY0-701) | CompTIA | 2026 |
 
+## Granger Security on YouTube
+
+I've made over 230 videos and Shorts since 2022, mostly short explainers on AI security, security analysis and Python, with some longer CVE breakdowns and Security+ content. I make them for people changing career into security, because it's the kind of help I wish I'd had when I started.
+
+[![YouTube](https://img.shields.io/badge/Watch-Granger_Security-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/@Granger-Security)
+
+## My journey so far
+
+```mermaid
+flowchart LR
+    A["2020 to 2021<br/>Fraud prevention<br/>at TTEC"] --> B["2022 to 2023<br/>Web developer<br/>at ARTH Infosoft"]
+    B --> C["2025<br/>MSc Information Security<br/>Royal Holloway"]
+    C --> D["2026<br/>Thirteen labs and<br/>CompTIA Security+"]
+    D --> E["Next<br/>My first role<br/>in security"]
+```
+
+What I'm working on next: the control mapping and OZONE Shield DPIA above, and later on Microsoft SC-200, Splunk Core Certified User and cloud security.
+
+## Get in touch
+
+I'm looking for my first role in the UK, in IT support, as a SOC or information security analyst, or in security GRC. I'm happy to work anywhere in the UK and can start at short notice. I have full right to work in the UK, with no sponsorship needed to start.
+
+The easiest way to reach me is a message on [LinkedIn](https://www.linkedin.com/in/bhargav-baranda).
 
 <div align="center">
 
-*Built in public. Every rule, investigation and write-up is free to use under the MIT License.*
+*Everything here is free to use under the MIT License.*
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:EE3124,50:1a1f2e,100:0d1117&height=100&section=footer"/>
 
